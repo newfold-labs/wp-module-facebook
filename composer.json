@@ -1,0 +1,18 @@
+{
+    "name": "newfold-labs/wp-module-facebook",
+    "autoload": {
+        "psr-4": {
+            "NewfoldLabs\\WP\\Module\\Facebook\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ramya krishna",
+            "email": "ramyakrishnaimminni@gmail.com"
+        }
+    ],
+    "require": {
+        "facebook/php-sdk-v4" : "4.0.*",
+        "facebook/graph-sdk": "^5.1"
+    }
+}
