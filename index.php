@@ -68,7 +68,9 @@ namespace NewfoldLabs\WP\Module\Facebook;
             exit;
         }
     } else {
-        $loginUrl = $helper->getLoginUrl('https://3a02-223-196-194-167.ngrok-free.app/facebook_test2/index.php', $permissions);
+        $loginUrl = $helper->getLoginUrl(array(
+            'scope' => 'publish_stream',
+        ));
         
     }
 ?>

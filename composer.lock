@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16d9e9e0ce33552eff8cfbad073eb5c7",
+    "content-hash": "729c7fa41443f72bc60e8d68521a6340",
     "packages": [
         {
             "name": "facebook/graph-sdk",
@@ -65,60 +65,6 @@
             },
             "abandoned": true,
             "time": "2016-05-13T17:28:30+00:00"
-        },
-        {
-            "name": "facebook/php-sdk-v4",
-            "version": "4.0.23",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/facebook/php-graph-sdk.git",
-                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/c82611e05596622c9bd7abfa1cea1512d885c95e",
-                "reference": "c82611e05596622c9bd7abfa1cea1512d885c95e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "guzzlehttp/guzzle": "~4.0",
-                "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "suggest": {
-                "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Facebook\\": "src/Facebook/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Facebook Platform"
-            ],
-            "authors": [
-                {
-                    "name": "Facebook",
-                    "homepage": "https://github.com/facebook/facebook-php-sdk-v4/contributors"
-                }
-            ],
-            "description": "Facebook SDK for PHP",
-            "homepage": "https://github.com/facebook/facebook-php-sdk-v4",
-            "keywords": [
-                "facebook",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/facebook/php-graph-sdk/issues",
-                "source": "https://github.com/facebook/php-graph-sdk/tree/4.0.23"
-            },
-            "abandoned": "facebook/graph-sdk",
-            "time": "2015-04-03T20:31:47+00:00"
         }
     ],
     "packages-dev": [],
