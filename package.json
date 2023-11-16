@@ -1,0 +1,31 @@
+{
+  "name": "@newfold/wp-module-facebook",
+  "version": "1.0.0",
+  "description": "## How it works?",
+  "main": "build/index.js",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "wp-scripts build ./index.js --config ./scripts/webpack.config.js",
+    "lint": "wp-scripts lint-js ./index.js",
+    "start": "wp-scripts start ./index.js --config ./scripts/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newfold-labs/wp-module-facebook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newfold-labs/wp-module-facebook/issues"
+  },
+  "homepage": "https://github.com/newfold-labs/wp-module-facebook#readme",
+  "dependencies": {
+    "@newfold/ui-component-library": "^1.0.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "tailwindcss": "^3.3.5",
+    "@wordpress/scripts": "26.0.0"
+  }
+}
