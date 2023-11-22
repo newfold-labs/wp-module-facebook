@@ -1,6 +1,8 @@
-import { Badge, Button } from "@newfold/ui-component-library";
-import React, { useEffect, useState } from "react";
+import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
+import React, { useEffect, useState } from "react";
+import GetUserProfile from "./getUserProfile";
+import performLogout from "./performLogout";
 
 const FacebookConnectButton = () => {
     const [fieldValue, setFieldValue] = useState('');
@@ -14,8 +16,8 @@ const FacebookConnectButton = () => {
             access: `${window.location.origin}/home/index.php?rest_route=%2Fnewfold-ecommerce%2Fv1%2Fintegrations%2Fhiive&_locale=user`
         },
         cf_worker: {
-            login_screen: `https://192.168.100.7:8787/?redirect=${window.location.href}`,
-            get_token: "https://192.168.100.7:8787/get/token?hiive_token="
+            login_screen: `https://192.168.2.4:8787/?redirect=${window.location.href}`,
+            get_token: "https://192.168.2.4:8787/get/token?hiive_token="
         }
     }
 
@@ -27,42 +29,61 @@ const FacebookConnectButton = () => {
                 Allow: "*/*",
                 Connection: "keep-alive"
             }
-                 }).then(resp => {
-            setFacebookToken(resp.token);
-            // window.fbAsyncInit = () => {
-                // console.log("inside")
-                // window.FB.init({
-                //     appId: "696041252459517",
-                //     cookie: true,
-                //     xfbml: true,
-                //     version: 'v18.0',
-                //     access_token: resp.token
-                // });
-                // console.log(FB);
-                // FB.getAuthResponse((resss) => {
-                //     console.log(resss)
-                // })
-                // FB.getAccessToken((access) => {
-                //     console.log(access)
-                // })
-                // FB.getLoginStatus((res) => {
-                    // if (res) {
-                    //     FB.api(`/me?access_token=${authResponse.token}`, function (response) {
-                    //         console.log('Good to see you, ' + response.name + '.');
-                    //     });
-                    // } else {
-                        // console.log(res)
-                    // }
-                // });
-               
-            // }
-            // (function(d, debug){
-            //     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            //     if (d.getElementById(id)) {return;}
-            //     js = d.createElement('script'); js.id = id; js.async = true;
-            //     js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-            //     ref.parentNode.insertBefore(js, ref);
-            //   }(document, /*debug*/ true));
+                 }).then(resp => {            
+
+            // Make sure the Facebook SDK is loaded before calling this
+            window.fbAsyncInit = function() {
+                FB.init({
+                appId: '696041252459517',
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0'
+                });
+
+                // Check the validity of an access token when the page is loaded
+                checkAccessTokenValidity(resp.token);
+            };
+            
+            // Function to check the validity of an access token
+            function checkAccessTokenValidity(accessToken) {
+                // Make a call to the Graph API debug_token endpoint
+                FB.api('/debug_token', { input_token: accessToken, access_token: '696041252459517|66251f57e1d15f5db650ed121920a4a1' }, function(response) {
+                if (response && !response.error) {
+                    // The response contains information about the token
+                    console.log('Token information:', response);
+                    if (response.data.is_valid) {
+                    console.log('Access token is valid');
+                    setFacebookToken(resp.token);                    
+                    // Check the login status and get user profile information when the page is loaded
+                    // FB.getLoginStatus(function(response) {
+                    //     console.log(response, "****")                        
+                    //     if (response.status === 'connected') {
+                    //     // User is logged into Facebook and has authorized your app
+                    //     getUserProfile();
+                    //     } else {
+                    //     // User is either not logged into Facebook or has not authorized your app
+                    //     console.log('User is not logged in or not authorized');
+                    //     }
+                    // });
+                    } else {
+                    console.log('Access token is not valid');
+                    setFacebookToken(false);
+                    }
+                } else {
+                    console.error('Error checking access token validity:', response.error);
+                }
+                });
+            }            
+            
+            // Load the Facebook SDK asynchronously
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
         }).catch(err => {
             console.log(err)
         })
@@ -75,7 +96,7 @@ const FacebookConnectButton = () => {
         hiiveToekna();
     }, [])
 
-    return (<div>{facebookAccess ? <Badge variant="success" className="nfd-bg-green-300">Connected to Facebook</Badge> : <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
+    return (<div>{facebookAccess ? <GetUserProfile /> : <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
         <input type="text" value={fieldValue} name="token_hiive" hidden />
         <Button type="submit" variant="primary">Connect to Facebook</Button>
     </form>}
