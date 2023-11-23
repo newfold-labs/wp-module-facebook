@@ -2,7 +2,6 @@ import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
 import GetUserProfile from "./getUserProfile";
-import performLogout from "./performLogout";
 
 const FacebookConnectButton = () => {
     const [fieldValue, setFieldValue] = useState('');
@@ -40,38 +39,56 @@ const FacebookConnectButton = () => {
                 version: 'v18.0'
                 });
 
-                // Check the validity of an access token when the page is loaded
-                checkAccessTokenValidity(resp.token);
+                // Check the validity of an access token when the page is loaded        
+                checkAccessTokenValidity(resp.token);               
+                
             };
             
             // Function to check the validity of an access token
             function checkAccessTokenValidity(accessToken) {
                 // Make a call to the Graph API debug_token endpoint
                 FB.api('/debug_token', { input_token: accessToken, access_token: '696041252459517|66251f57e1d15f5db650ed121920a4a1' }, function(response) {
-                if (response && !response.error) {
-                    // The response contains information about the token
-                    console.log('Token information:', response);
-                    if (response.data.is_valid) {
-                    console.log('Access token is valid');
-                    setFacebookToken(resp.token);                    
-                    // Check the login status and get user profile information when the page is loaded
-                    // FB.getLoginStatus(function(response) {
-                    //     console.log(response, "****")                        
-                    //     if (response.status === 'connected') {
-                    //     // User is logged into Facebook and has authorized your app
-                    //     getUserProfile();
-                    //     } else {
-                    //     // User is either not logged into Facebook or has not authorized your app
-                    //     console.log('User is not logged in or not authorized');
-                    //     }
-                    // });
+                    if (response && !response.error) {
+                        // The response contains information about the token
+                        console.log('Token information:', response);
+                        let isAccessTokenValid = response.data.is_valid
+                        if (isAccessTokenValid) {
+                            console.log('Access token is valid');
+                            setFacebookToken(resp.token);      
+                            getLoginStatusInfo()                            
+                        } else {
+                            console.log('Access token is not valid');
+                            setFacebookToken(false);
+                        }                                                              
                     } else {
-                    console.log('Access token is not valid');
-                    setFacebookToken(false);
+                        console.error('Error checking access token validity:', response.error);
+                    }                    
+                });
+            }                    
+            
+            //Get Login Status
+            function getLoginStatusInfo(){
+                // Check the login status and get user profile information when the page is loaded
+                FB.getLoginStatus(function(response) {
+                    console.log(response, "****")                        
+                    if (response.status === 'connected'){
+                        getProfileInfo()
+                    } else {
+                        // User is either not logged into Facebook or has not authorized your app
+                        console.log('User is not logged in or not authorized');                        
                     }
-                } else {
-                    console.error('Error checking access token validity:', response.error);
-                }
+                });
+                
+            }
+            //Get User Profile Information
+            function getProfileInfo(){
+                FB.api('/me', { fields: 'id,name,email' }, function(response) {
+                    console.log(response, "Kay ala response ekde?")
+                    if (response && !response.error) {
+                      console.log(`User profile information: ${ response.id }, ${response.name}, ${response.email}`);                      
+                    } else {
+                      console.error(`Error fetching user profile: ${response.error}`);                      
+                    }
                 });
             }            
             
@@ -96,11 +113,21 @@ const FacebookConnectButton = () => {
         hiiveToekna();
     }, [])
 
-    return (<div>{facebookAccess ? <GetUserProfile /> : <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
+    //Trigger Facebook logout
+    const performLogout = () => {
+        window.FB.logout(function (response) {
+          // This function will be called after the user is logged out
+          console.log('User logged out');
+          // Add additional logout handling as needed
+        });
+    };
+
+    return (<div>{facebookAccess ? <Button style={{ "color": "#fff", "padding": "5px 20px"}} className="nfd-bg-red-600" onClick={performLogout}>Disconnect Facebook</Button> : <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
         <input type="text" value={fieldValue} name="token_hiive" hidden />
         <Button type="submit" variant="primary">Connect to Facebook</Button>
     </form>}
     </div>)
+
 }
 
 export default FacebookConnectButton;
