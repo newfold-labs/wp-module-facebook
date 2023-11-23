@@ -1,11 +1,11 @@
 import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
-import GetUserProfile from "./getUserProfile";
 
 const FacebookConnectButton = () => {
     const [fieldValue, setFieldValue] = useState('');
     const [facebookAccess, setFacebookToken] = useState(null);
+    const [profileData, setProfileData] = useState([]);
 
     const ENDPOINTS = {
         facebook_module: {
@@ -40,8 +40,7 @@ const FacebookConnectButton = () => {
                 });
 
                 // Check the validity of an access token when the page is loaded        
-                checkAccessTokenValidity(resp.token);               
-                
+                checkAccessTokenValidity(resp.token);                               
             };
             
             // Function to check the validity of an access token
@@ -49,15 +48,16 @@ const FacebookConnectButton = () => {
                 // Make a call to the Graph API debug_token endpoint
                 FB.api('/debug_token', { input_token: accessToken, access_token: '696041252459517|66251f57e1d15f5db650ed121920a4a1' }, function(response) {
                     if (response && !response.error) {
+
                         // The response contains information about the token
-                        console.log('Token information:', response);
+                        //console.log('Token information:', response);                        
                         let isAccessTokenValid = response.data.is_valid
                         if (isAccessTokenValid) {
-                            console.log('Access token is valid');
-                            setFacebookToken(resp.token);      
-                            getLoginStatusInfo()                            
+                            //console.log('Access token is valid');
+                            setFacebookToken(resp.token); 
+                            getFacebookUserProfile(resp.token)                
                         } else {
-                            console.log('Access token is not valid');
+                            //console.log('Access token is not valid');
                             setFacebookToken(false);
                         }                                                              
                     } else {
@@ -65,32 +65,21 @@ const FacebookConnectButton = () => {
                     }                    
                 });
             }                    
-            
-            //Get Login Status
-            function getLoginStatusInfo(){
-                // Check the login status and get user profile information when the page is loaded
-                FB.getLoginStatus(function(response) {
-                    console.log(response, "****")                        
-                    if (response.status === 'connected'){
-                        getProfileInfo()
-                    } else {
-                        // User is either not logged into Facebook or has not authorized your app
-                        console.log('User is not logged in or not authorized');                        
-                    }
-                });
-                
-            }
+                                    
             //Get User Profile Information
-            function getProfileInfo(){
-                FB.api('/me', { fields: 'id,name,email' }, function(response) {
-                    console.log(response, "Kay ala response ekde?")
-                    if (response && !response.error) {
-                      console.log(`User profile information: ${ response.id }, ${response.name}, ${response.email}`);                      
-                    } else {
-                      console.error(`Error fetching user profile: ${response.error}`);                      
-                    }
-                });
-            }            
+            function getFacebookUserProfile(accessToken) {              
+                // Make a request to get the Facebook logged in user information
+                fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    // Log the user information
+                    //console.log('User Profile:', data);                    
+                    setProfileData([data])                                
+                  })
+                  .catch(error => {
+                    console.error('Error fetching user profile:', error);
+                  });
+              }
             
             // Load the Facebook SDK asynchronously
             (function(d, s, id) {
@@ -112,22 +101,34 @@ const FacebookConnectButton = () => {
     useEffect(() => {
         hiiveToekna();
     }, [])
-
-    //Trigger Facebook logout
-    const performLogout = () => {
-        window.FB.logout(function (response) {
-          // This function will be called after the user is logged out
-          console.log('User logged out');
-          // Add additional logout handling as needed
-        });
-    };
-
-    return (<div>{facebookAccess ? <Button style={{ "color": "#fff", "padding": "5px 20px"}} className="nfd-bg-red-600" onClick={performLogout}>Disconnect Facebook</Button> : <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
-        <input type="text" value={fieldValue} name="token_hiive" hidden />
-        <Button type="submit" variant="primary">Connect to Facebook</Button>
-    </form>}
+    
+    return (
+        <div>{
+                facebookAccess ? 
+                <div>
+                <Button style={{ "color": "#fff", "padding": "5px 20px"}} className="nfd-bg-green-600">Connected to Facebook</Button> 
+                <div>                    
+                {profileData?.map((dataObj,index) => {
+                    return (
+                        <>
+                            <ul style={{"paddingTop": "20px"}}>
+                                <li><p>{dataObj.id}</p></li>
+                                <li><p>{dataObj.name}</p></li>
+                                <li><p>{dataObj.email}</p></li>
+                            </ul>
+                            <img src= {dataObj.picture.data.url} height={dataObj.picture.height} width={dataObj.picture.width} />
+                       </> 
+                    );
+                })}
+                </div>
+                </div>    
+                : 
+                <form action={ENDPOINTS.cf_worker.login_screen} enctype="application/x-www-form-urlencoded" method="post">
+                    <input type="text" value={fieldValue} name="token_hiive" hidden />
+                    <Button type="submit" variant="primary">Connect to Facebook</Button>
+                </form>
+            }
     </div>)
-
 }
 
 export default FacebookConnectButton;
