@@ -50,7 +50,7 @@ const FacebookConnectButton = () => {
                     if (response && !response.error) {
 
                         // The response contains information about the token
-                        //console.log('Token information:', response);                        
+                        console.log('Token information:', response);                        
                         let isAccessTokenValid = response.data.is_valid
                         if (isAccessTokenValid) {
                             //console.log('Access token is valid');
@@ -112,11 +112,12 @@ const FacebookConnectButton = () => {
                     return (
                         <>
                             <ul style={{"paddingTop": "20px"}}>
-                                <li><p>{dataObj.id}</p></li>
-                                <li><p>{dataObj.name}</p></li>
-                                <li><p>{dataObj.email}</p></li>
+                                <li><p>Facebook ID: {dataObj.id}</p></li>
+                                <li><p>User Name: {dataObj.name}</p></li>
+                                <li><p>User Email: {dataObj.email}</p></li>
+                                <li><p>Profile pic:{dataObj.picture.data.url}</p></li>
                             </ul>
-                            <img src= {dataObj.picture.data.url} height={dataObj.picture.height} width={dataObj.picture.width} />
+                            <img src= {`https://graph.facebook.com/${dataObj.id}/picture?type=small`} height={dataObj.picture.height} width={dataObj.picture.width} />
                        </> 
                     );
                 })}
