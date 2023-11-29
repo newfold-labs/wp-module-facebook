@@ -27,3 +27,10 @@ export const getFacebookUserPosts = (userId, accessToken) => {
             console.error('Error fetching user profile:', error);
         });
 }
+
+export const getFacebookUserProfileDetails = async () => {
+   const settings_details = await apiFetch({ url: constants.wordpress.settings });
+   const facebook_details = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${settings_details.fb_token}`);
+   const profile_details = await facebook_details.json();
+   return profile_details
+}

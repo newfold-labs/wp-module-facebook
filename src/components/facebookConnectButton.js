@@ -1,7 +1,7 @@
 import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
-import { getFacebookUserPosts, getToken } from "../utils/helper";
+import { getFacebookUserPosts, getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
 
 const FacebookConnectButton = () => {
@@ -9,9 +9,22 @@ const FacebookConnectButton = () => {
     const [facebookAccess, setFacebookToken] = useState(null);
     const [profileData, setProfileData] = useState([]);
 
-    const hiiveToekna = () => apiFetch({ url: constants.hiive_toke.access }).then((res) => {
+    const postToken = (fb_token) => {
+
+        apiFetch({
+            url: constants.wordpress.settings,
+            method: "post",
+            data: {
+                fb_token
+            }
+        }).then(res => console.log(res)).catch(err => {
+            console.log(err)
+        })
+    }
+    const hiiveToekna = () => apiFetch({ url: constants.wordpress.access }).then((res) => {
         getToken(res.token).then(resp => {
             // Make sure the Facebook SDK is loaded before calling this
+            postToken(resp.token);
             window.fbAsyncInit = function () {
                 FB.init({
                     appId: '696041252459517',
@@ -20,7 +33,7 @@ const FacebookConnectButton = () => {
                     version: 'v18.0'
                 });
 
-                checkAccessTokenValidity(resp.token);
+                resp.token && checkAccessTokenValidity(resp.token);
             };
 
             // Function to check the validity of an access token
@@ -77,11 +90,27 @@ const FacebookConnectButton = () => {
     });
 
     useEffect(() => {
-        hiiveToekna();
+        apiFetch({ url: constants.wordpress.settings }).then((res) => {
+           if(res.fb_token){
+            getFacebookUserProfileDetails().then(response => {
+                setFacebookToken(res.fb_token);
+                setProfileData([response])
+            })
+           }else{
+            hiiveToekna();
+           }
+        })
     }, [])
 
     const connectFacebook = () => {
-        window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=50,height=50,top=200,left=200`)
+       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=50,height=50,top=200,left=200`)
+   
+      const intervalId = setInterval(function() {
+        if (win.closed) {
+            clearInterval(intervalId);
+            window.location.reload();
+        }
+    }, 5000);
     }
 
     return (
