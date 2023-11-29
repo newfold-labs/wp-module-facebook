@@ -1,6 +1,7 @@
 export default {
     facebook_module: {
         base_url: "https://graph.facebook.com/v18.0",
+        debug_token : "/debug_token"
     },
     wordpress: {
         access: `${window.location.origin}/home/index.php?rest_route=%2Fnewfold-ecommerce%2Fv1%2Fintegrations%2Fhiive&_locale=user`,
