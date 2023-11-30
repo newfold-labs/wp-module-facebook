@@ -9,7 +9,7 @@ export default {
         settings: `${window.location.origin}/home/index.php?rest_route=%2Fwp%2Fv2%2Fsettings&_locale=user`
     },
     cf_worker: {
-        login_screen: `https://192.168.1.7:8787/`,
-        get_token: "https://192.168.1.7:8787/get/token?hiive_token="
+        login_screen: `https://192.168.1.6:8787/`,
+        get_token: "https://192.168.1.6:8787/get/token?hiive_token="
     }
 }

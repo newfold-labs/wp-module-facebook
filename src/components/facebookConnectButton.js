@@ -10,7 +10,7 @@ const FacebookConnectButton = () => {
     const [profileData, setProfileData] = useState([]);
 
     const postToken = (fb_token) => {
-
+            //storing facebook token in db
         apiFetch({
             url: constants.wordpress.settings,
             method: "post",
@@ -21,10 +21,10 @@ const FacebookConnectButton = () => {
             console.log(err)
         })
     }
+
     const hiiveToekna = () => apiFetch({ url: constants.wordpress.access }).then((res) => {
         getToken(res.token).then(resp => {
             // Make sure the Facebook SDK is loaded before calling this
-            postToken(resp.token);
             window.fbAsyncInit = function () {
                 FB.init({
                     appId: '696041252459517',
@@ -47,6 +47,7 @@ const FacebookConnectButton = () => {
                         let isAccessTokenValid = response.data.is_valid
                         if (isAccessTokenValid) {
                             //console.log('Access token is valid');
+                            postToken(resp.token);
                             setFacebookToken(resp.token);
                             getFacebookUserProfile(resp.token)
                         } else {
