@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { checkAccessTokenValidity, getFacebookUserPosts, getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
 
-const FacebookConnectButton = () => {
+const FacebookConnectButton = (props) => {
     const [fieldValue, setFieldValue] = useState('');
     const [facebookAccess, setFacebookToken] = useState(null);
     const [profileData, setProfileData] = useState([]);
@@ -108,6 +108,14 @@ const FacebookConnectButton = () => {
    
       const intervalId = setInterval(function() {
         if (win.closed) {
+            props.notify?.push('fb-connect-status', {
+                title: __(
+                  'Connected to facebook successfully',
+                  'wp-ßßmodule-ecommerce'
+                ),
+                variant: 'success',
+                autoDismiss: 5000,
+              });
             clearInterval(intervalId);
             window.location.reload();
         }
