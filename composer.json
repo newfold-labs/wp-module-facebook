@@ -1,0 +1,16 @@
+{
+    "name": "newfold-labs/wp-module-facebook",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "NewfoldLabs\\WpModuleFacebook\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ramya krishna",
+            "email": "ramyakrishnaimminni@gmail.com"
+        }
+    ],
+    "require": {}
+}
