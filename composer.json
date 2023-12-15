@@ -3,8 +3,11 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "NewfoldLabs\\WpModuleFacebook\\": "includes/"
-        }
+            "NewfoldLabs\\Wp\\Module\\Facebook\\": "includes/"
+        },
+        "files": [
+            "bootstrap.php"
+          ]
     },
     "authors": [
         {

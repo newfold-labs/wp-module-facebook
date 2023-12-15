@@ -91,6 +91,9 @@ const FacebookConnectButton = (props) => {
     });
 
     useEffect(() => {
+        apiFetch({ url: constants.wordpress.access }).then((res) => {
+            console.log(res)
+        })
         apiFetch({ url: constants.wordpress.settings }).then((res) => {
            if(res.fb_token){
             getFacebookUserProfileDetails().then(response => {
@@ -104,7 +107,7 @@ const FacebookConnectButton = (props) => {
     }, [])
 
     const connectFacebook = () => {
-       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=200,height=200,top=200,left=200`)
+       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth/2 + 100},height=${window.innerHeight/2 + 100},top=100,left=200`)
    
       const intervalId = setInterval(function() {
         if (win.closed) {
