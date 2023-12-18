@@ -104,7 +104,7 @@ const FacebookConnectButton = () => {
     }, [])
 
     const connectFacebook = () => {
-       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=50,height=50,top=200,left=200`)
+       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=150,height=150,top=200,left=200`)
    
       const intervalId = setInterval(function() {
         if (win.closed) {
