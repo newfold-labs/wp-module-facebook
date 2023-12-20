@@ -1,6 +1,15 @@
 {
     "name": "newfold-labs/wp-module-facebook",
     "type": "library",
+    "repositories": [
+        {
+          "type": "composer",
+          "url": "https://newfold-labs.github.io/satis/",
+          "only": [
+            "newfold-labs/*"
+          ]
+        }
+      ],
     "autoload": {
         "psr-4": {
             "NewfoldLabs\\Wp\\Module\\Facebook\\": "includes/"
@@ -11,9 +20,19 @@
     },
     "authors": [
         {
-            "name": "Ramya krishna",
-            "email": "ramyakrishnaimminni@gmail.com"
-        }
+            "name": "Beyond",
+            "email": "team-spartans@newfold.com"
+          }
     ],
-    "require": {}
+    "require": {
+        "newfold-labs/wp-module-data": "^2.3.1"
+      },
+      "require-dev": {
+        "newfold-labs/wp-php-standards": "^1.2"
+      },
+    "config": {
+        "allow-plugins": {
+          "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }

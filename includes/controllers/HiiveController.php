@@ -8,7 +8,6 @@ class IntegrationsController {
 
     protected $rest_base = '/hiive';
     public function __construct() {
-        echo "<script>console.log('calling...')</script>";
 		add_action( 'rest_api_init', array($this, "register_routes"));
 	}
 
@@ -29,7 +28,6 @@ class IntegrationsController {
     public function get_hiive_token() {
 		$hiive_token = HiiveConnection::get_auth_token();
 
-			if ( ! $hiive_token ) {}
 		return new \WP_REST_Response(
 			array(
 				'token' => $hiive_token ? $hiive_token : 'test2',
