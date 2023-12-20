@@ -3,6 +3,7 @@ import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
 import { checkAccessTokenValidity, getFacebookUserPosts, getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
+import AES from "crypto-js/aes";
 
 const FacebookConnectButton = (props) => {
     const [fieldValue, setFieldValue] = useState('');
@@ -10,14 +11,17 @@ const FacebookConnectButton = (props) => {
     const [profileData, setProfileData] = useState([]);
 
     const postToken = (fb_token) => {
+        const facebook_token = AES.encrypt(fb_token, constants.facebook_module.token_phrase).toString()
             //storing facebook token in db
         apiFetch({
             url: constants.wordpress.settings,
             method: "post",
             data: {
-                fb_token
+                fb_token: facebook_token
             }
-        }).then(res => console.log(res)).catch(err => {
+        }).then(res => {
+            return res
+        }).catch(err => {
             console.log(err)
         })
     }
@@ -32,8 +36,10 @@ const FacebookConnectButton = (props) => {
                     xfbml: true,
                     version: 'v18.0'
                 });
-
-                resp.token && checkAccessTokenValidity(resp.token);
+                if(resp.token){
+                    checkAccessTokenValidity(resp.token);
+                }
+                
             };
 
             // Function to check the validity of an access token
@@ -41,7 +47,6 @@ const FacebookConnectButton = (props) => {
                 // Make a call to the Graph API debug_token endpoint
                 FB.api('/debug_token', { input_token: accessToken, access_token: '696041252459517|66251f57e1d15f5db650ed121920a4a1' }, function (response) {
                     if (response && !response.error) {
-
                         // The response contains information about the token
                         // console.log('Token information:', response);
                         let isAccessTokenValid = response.data.is_valid
@@ -107,7 +112,7 @@ const FacebookConnectButton = (props) => {
     }, [])
 
     const connectFacebook = () => {
-       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth/2 + 100},height=${window.innerHeight/2 + 100},top=100,left=200`)
+       const win = window.open(`${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`, "ModalPopUp", `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth/2 + 200},height=${window.innerHeight/2 + 200},top=200,left=200`)
    
       const intervalId = setInterval(function() {
         if (win.closed) {
