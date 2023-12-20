@@ -1,5 +1,7 @@
 import apiFetch from "@wordpress/api-fetch";
 import constants from "./constants";
+import AES from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 
 export const getToken = (hiiveToken) => {
     return apiFetch({
@@ -38,9 +40,12 @@ export const checkAccessTokenValidity = (accessToken) => {
 
 export const getFacebookUserProfileDetails = async () => {
     const settings_details = await apiFetch({ url: constants.wordpress.settings });
-    const checkAccess = await checkAccessTokenValidity(settings_details.fb_token);
+    const decrypt_data = await AES.decrypt(settings_details.fb_token, constants.facebook_module.token_phrase)
+    const decrypt_data_str = await decrypt_data.toString(CryptoJS.enc.Utf8);
+
+    const checkAccess = await checkAccessTokenValidity(decrypt_data_str);
     if (checkAccess?.data?.is_valid) {
-        const facebook_details = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${settings_details.fb_token}`);
+        const facebook_details = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${decrypt_data_str}`);
         const profile_details = await facebook_details.json();
         return profile_details
     } else {
