@@ -1,6 +1,8 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook;
+use NewfoldLabs\WP\ModuleLoader\Container;
 
+use NewfoldLabs\WP\Module\Facebook\RestApi\HiiveController;
 /**
  * Class Facebook
  *
@@ -20,13 +22,19 @@ class Facebook{
     * @var array
     */
    protected $controllers = array(
-       'NewfoldLabs\\WP\\Module\\Facebook\\RestApi\\HiiveController',
+       'NewfoldLabs\\WP\\Module\\Facebook\\RestApi\\FacebookController',
    );
 
     public function __construct( Container $container ) {
         $this->container = $container;
-        echo "<script>console.log('helloo')</scipt>";
-        die();
+        add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+    }
+
+    public function register_routes(){
+      foreach($this->controllers as $controller){
+        $rest_api = new $controller();
+        $rest_api->register_routes();
+      }
     }
 }
 

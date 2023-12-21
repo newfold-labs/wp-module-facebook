@@ -119,7 +119,7 @@ const FacebookConnectButton = (props) => {
             props.notify?.push('fb-connect-status', {
                 title: __(
                   'Connected to facebook successfully',
-                  'wp-ßßmodule-ecommerce'
+                  'wp-module-ecommerce'
                 ),
                 variant: 'success',
                 autoDismiss: 5000,
@@ -127,7 +127,7 @@ const FacebookConnectButton = (props) => {
             clearInterval(intervalId);
             window.location.reload();
         }
-    }, 5000);
+        }, 5000);
     }
 
     return (
