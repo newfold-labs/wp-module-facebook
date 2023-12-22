@@ -3,7 +3,6 @@ import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
 import { checkAccessTokenValidity, getFacebookUserPosts, getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
-import AES from "crypto-js/aes";
 
 const FacebookConnectButton = (props) => {
     const [fieldValue, setFieldValue] = useState('');
@@ -11,13 +10,11 @@ const FacebookConnectButton = (props) => {
     const [profileData, setProfileData] = useState([]);
 
     const postToken = (fb_token) => {
-        const facebook_token = AES.encrypt(fb_token, constants.facebook_module.token_phrase).toString()
-            //storing facebook token in db
         apiFetch({
             url: constants.wordpress.settings,
             method: "post",
             data: {
-                fb_token: facebook_token
+                fb_token: fb_token
             }
         }).then(res => {
             return res

@@ -1,7 +1,7 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook\RestApi;
 
-
+use NewfoldLabs\WP\Module\Facebook\Services\FacebookService;
 class FacebookController {
     protected $namespace = 'newfold-facebook/v1';
 
@@ -20,14 +20,37 @@ class FacebookController {
                 ),
             )
         );
+
+        register_rest_route(
+            $this->namespace,
+            $this->rest_base . '/details',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array( $this, 'get_fb_details' ),
+                    'permission_callback'  => null
+                ),
+            )
+        );
     }
 
     public function logout() {
 		delete_option('fb_token');
+        $fb = FacebookService::delete_token();
         return new \WP_REST_Response(
 			array(
-				'status'    => 'logged out', 
-				'login'     => false
+				'status'    => 'success', 
+				'loggedIn'     => false
+			),200
+		);
+	}
+
+    public function get_fb_details() {
+        $fb_details = FacebookService::get_fb_details();
+        return new \WP_REST_Response(
+			array(
+				'status'    => 'success', 
+				'details'     => $fb_details
 			),200
 		);
 	}
