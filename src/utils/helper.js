@@ -46,6 +46,6 @@ export const getFacebookUserProfileDetails = async () => {
         const profile_details = await facebook_details.json();
         return profile_details
     } catch (error) {
-        return {"error": "failed to load the data"}
+        return {"message": "failed to load the data"}
     }
 }
