@@ -19,7 +19,6 @@ export const getToken = (hiiveToken) => {
 
 export const getFacebookUserProfile = (accessToken) => {
     return fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`)
-
 }
 
 export const getFacebookUserPosts = (userId, accessToken) => {
@@ -42,9 +41,11 @@ export const checkAccessTokenValidity = (accessToken) => {
 }
 
 export const getFacebookUserProfileDetails = async () => {
-   
+    try {
         const facebook_details = apiFetch({url: endpoints.facebook_details});
         const profile_details = await facebook_details.json();
         return profile_details
-   
+    } catch (error) {
+        return {"error": "failed to load the data"}
+    }
 }

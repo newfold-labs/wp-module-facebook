@@ -39,7 +39,7 @@ class Facebook{
       }
     }
 
-    /**
+  /**
 	 * Encrypt Facebook token
 	 *
 	 * @param string $value 
@@ -48,8 +48,8 @@ class Facebook{
 	 */
 	public function encrypt_token( $value ) {
         $encrpt = new Encryption();
-		$encrypt_data = $encrpt->encrypt($value);
-		return $encrypt_data;
+        $encrypt_data = $encrpt->encrypt($value);
+        return $encrypt_data;
 	}
 
 }
