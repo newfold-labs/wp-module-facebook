@@ -1,10 +1,10 @@
 import apiFetch from "@wordpress/api-fetch";
 import constants from "./constants";
-import { NewfoldRuntime } from "@newfold-labs/wp-module-runtime";
+// import { NewfoldRuntime } from "@newfold-labs/wp-module-runtime";
 
-const endpoints = {
-    facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
-}
+// const endpoints = {
+//     facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
+// }
 
 export const getToken = (hiiveToken) => {
     return apiFetch({
@@ -42,9 +42,9 @@ export const checkAccessTokenValidity = (accessToken) => {
 }
 
 export const getFacebookUserProfileDetails = async () => {
-   
-        const facebook_details = apiFetch({url: endpoints.facebook_details});
-        const profile_details = await facebook_details.json();
-        return profile_details
-   
+    return apiFetch({url: constants.wordpress.facebook_details}).then(res => {
+        return res?.details;
+    }).catch ((error)=>{
+        throw {"message": "Failed to load the data", error}
+    })
 }
