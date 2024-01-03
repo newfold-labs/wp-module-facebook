@@ -24,11 +24,13 @@ class FacebookService {
         $fb_token = UtilityService::decrypt_token();
         if(!isset($fb_token)){
             $fb_token = UtilityService::get_token();
-         }        
+         }  
+         if(isset($fb_token)){      
          $url = 'https://graph.facebook.com/me?fields=id,name,email,picture&access_token='. $fb_token;
          $result = ExternalApiService::CallAPI('GET', $url);
-         
          return $result;
+         }
+         return "token not found!";
     }
 }
 ?>

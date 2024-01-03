@@ -16,7 +16,6 @@ class UtilityService{
     /**
 	 * Decrypt Facebook token
 	 *
-	 * @param string $value 
 	 *
 	 * @return string Decrypted value
 	 */
@@ -25,6 +24,19 @@ class UtilityService{
         $encrpt = new Encryption();
         $decrypt_data = $fb_token ? $encrpt->decrypt($fb_token) : null;
         return $decrypt_data;
+	}
+
+      /**
+	 * Encrypt Facebook token
+	 *
+	 * @param string $value 
+	 *
+	 * @return string Encrypted value
+	 */
+	public static function encrypt_token($value) {
+        $encrpt = new Encryption();
+        $encrypt_data = $value ? $encrpt->encrypt($value) : null;
+        return $encrypt_data;
 	}
 }
 ?>

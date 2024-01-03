@@ -11,7 +11,7 @@ const FacebookConnectButton = (props) => {
 
     const postToken = (fb_token) => {
         apiFetch({
-            url: constants.wordpress.settings,
+            url: constants.wordpress.fb_token,
             method: "post",
             data: {
                 fb_token: fb_token
@@ -24,66 +24,9 @@ const FacebookConnectButton = (props) => {
     }
 
     const hiiveToekna = () => apiFetch({ url: constants.wordpress.access }).then((res) => {
-        getToken(res.token).then(resp => {
-            // Make sure the Facebook SDK is loaded before calling this
-            window.fbAsyncInit = function () {
-                FB.init({
-                    appId: '696041252459517',
-                    cookie: true,
-                    xfbml: true,
-                    version: 'v18.0'
-                });
-                if(resp.token){
-                    checkAccessTokenValidity(resp.token);
-                }
-                
-            };
-
-            // Function to check the validity of an access token
-            function checkAccessTokenValidity(accessToken) {
-                // Make a call to the Graph API debug_token endpoint
-                FB.api('/debug_token', { input_token: accessToken, access_token: '696041252459517|66251f57e1d15f5db650ed121920a4a1' }, function (response) {
-                    if (response && !response.error) {
-                        // The response contains information about the token
-                        // console.log('Token information:', response);
-                        let isAccessTokenValid = response.data.is_valid
-                        if (isAccessTokenValid) {
-                            //console.log('Access token is valid');
-                            postToken(resp.token);
-                            setFacebookToken(resp.token);
-                            getFacebookUserProfile(resp.token)
-                        } else {
-                            //console.log('Access token is not valid');
-                            setFacebookToken(false);
-                        }
-                    } else {
-                        console.error('Error checking access token validity:', response.error);
-                    }
-                });
-            }
-
-            //Get User Profile Information
-            function getFacebookUserProfile(accessToken) {
-                // Make a request to get the Facebook logged in user information
-                FB.api(`/me?fields=id,name,email,picture&access_token=${accessToken}`, (response) => {
-                    if (!response.error) {
-                        getFacebookUserPosts(response.id, accessToken)
-                        setProfileData([response])
-                    } else {
-                        console.log('Error fetching user profile:', response.error);
-                    }
-                })
-            }
-
-            // Load the Facebook SDK asynchronously
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = 'https://connect.facebook.net/en_US/sdk.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-
+        getToken().then(resp => {
+            postToken(resp.token);
+            setFacebookToken(resp.token);
         }).catch(err => {
             console.log(err)
         })
@@ -94,14 +37,14 @@ const FacebookConnectButton = (props) => {
 
     useEffect(() => {
         apiFetch({ url: constants.wordpress.access }).then((res) => {
-            console.log(res)
+            setFieldValue(res.token);
         })
-        apiFetch({ url: constants.wordpress.settings }).then((res) => {
+        apiFetch({ url: constants.wordpress.fb_token }).then((res) => {
            if(res.fb_token){
             getFacebookUserProfileDetails().then(response => {
                 setFacebookToken(res.fb_token);
                 setProfileData([response])
-            })
+            }).catch(() =>  hiiveToekna())
            }else{
             hiiveToekna();
            }

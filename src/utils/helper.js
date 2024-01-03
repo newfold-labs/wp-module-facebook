@@ -6,13 +6,14 @@ const endpoints = {
     facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
 }
 
-export const getToken = (hiiveToken) => {
+export const getToken = () => {
     return apiFetch({
-        url: `${constants.cf_worker.get_token}${hiiveToken}&origin=${window.location.origin}`,
+        url: `${constants.wordpress.fb_token}`,
         headers: {
             method: "GET",
-            Allow: "*/*",
-            Connection: "keep-alive"
+            "content-type": "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Access-Control-Allow-Origin": '*'
         }
     })
 }
@@ -40,12 +41,10 @@ export const checkAccessTokenValidity = (accessToken) => {
         });
 }
 
-export const getFacebookUserProfileDetails = async () => {
-    try {
-        const facebook_details = apiFetch({url: endpoints.facebook_details});
-        const profile_details = await facebook_details.json();
-        return profile_details
-    } catch (error) {
-        return {"message": "failed to load the data"}
-    }
+export const getFacebookUserProfileDetails = () => {
+       return apiFetch({url: endpoints.facebook_details}).then(res => {
+            return res?.details;
+        }).catch ((error)=>{
+        throw {"message": "failed to load the data", error}
+    })
 }

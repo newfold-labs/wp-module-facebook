@@ -2,6 +2,7 @@
 namespace NewfoldLabs\WP\Module\Facebook\RestApi;
 
 use NewfoldLabs\WP\Module\Facebook\Services\FacebookService;
+use NewfoldLabs\WP\Module\Facebook\Services\UtilityService;
 class FacebookController {
     protected $namespace = 'newfold-facebook/v1';
 
@@ -16,7 +17,7 @@ class FacebookController {
                 array(
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => array( $this, 'logout' ),
-                    'permission_callback'  => null
+                    'permission_callback'  => array($this, 'rest_is_authorized_admin')
                 ),
             )
         );
@@ -28,7 +29,31 @@ class FacebookController {
                 array(
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => array( $this, 'get_fb_details' ),
-                    'permission_callback'  => null
+                    'permission_callback'  => array($this, 'rest_is_authorized_admin')
+                ),
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            $this->rest_base . '/fb_token',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => array( $this, 'post_fb_token' ),
+                    'permission_callback'  => array($this, 'rest_is_authorized_admin')
+                ),
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            $this->rest_base . '/fb_token',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array( $this, 'get_fb_token' ),
+                    'permission_callback'  => array($this, 'rest_is_authorized_admin')
                 ),
             )
         );
@@ -53,6 +78,38 @@ class FacebookController {
 				'details'     => $fb_details
 			),200
 		);
+	}
+
+    public function post_fb_token($request) {
+        $fb_token = UtilityService::get_token();
+        $encrypted_token = UtilityService::encrypt_token($fb_token);
+        update_option('fb_token', $encrypted_token);
+        return new \WP_REST_Response(
+			array(
+				'status'    => 'success', 
+				'message'     => 'updated successfully!'
+			),200
+		);
+	}
+
+    public function get_fb_token() {
+        $option = get_option('fb_token', false);
+        $fb_token = $option ? UtilityService::encrypt_token($option) : null;
+        if(!isset($fb_token)){
+            $fb_token = UtilityService::get_token();
+            update_option("fb_token", $fb_token);
+        }
+        return new \WP_REST_Response(
+			array(
+				'status'    => 'success', 
+				'fb_token'     => $fb_token
+			),200
+		);
+	}
+
+    public static function rest_is_authorized_admin() {
+        $admin = 'manage_options';
+		return \is_user_logged_in() && \current_user_can( $admin );
 	}
     
 }
