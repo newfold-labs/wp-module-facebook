@@ -1,10 +1,5 @@
 import apiFetch from "@wordpress/api-fetch";
 import constants from "./constants";
-// import { NewfoldRuntime } from "@newfold-labs/wp-module-runtime";
-
-// const endpoints = {
-//     facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
-// }
 
 export const getToken = () => {
     return apiFetch({
@@ -42,7 +37,7 @@ export const checkAccessTokenValidity = (accessToken) => {
 }
 
 export const getFacebookUserProfileDetails = () => {
-       return apiFetch({url: endpoints.facebook_details}).then(res => {
+       return apiFetch({url: constants.wordpress.facebook_details}).then(res => {
         if(res?.details?.error){
             throw {"message": "failed to load the data", error: res?.details?.error} 
         }
