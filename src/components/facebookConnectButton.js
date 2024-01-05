@@ -1,7 +1,7 @@
 import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
 import React, { useEffect, useState } from "react";
-import { checkAccessTokenValidity, getFacebookUserPosts, getFacebookUserProfileDetails, getToken } from "../utils/helper";
+import { getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
 
 const FacebookConnectButton = (props) => {
@@ -25,8 +25,10 @@ const FacebookConnectButton = (props) => {
 
     const hiiveToekna = () => apiFetch({ url: constants.wordpress.access }).then((res) => {
         getToken().then(resp => {
-            postToken(resp.token);
-            setFacebookToken(resp.token);
+            if(resp.token){
+                postToken(resp.token);
+                setFacebookToken(resp.token);
+            }
         }).catch(err => {
             console.log(err)
         })
@@ -37,13 +39,13 @@ const FacebookConnectButton = (props) => {
 
     useEffect(() => {
         apiFetch({ url: constants.wordpress.access }).then((res) => {
-            setFieldValue(res.token);
+            res.token && setFieldValue(res.token);
         })
         apiFetch({ url: constants.wordpress.fb_token }).then((res) => {
            if(res.fb_token){
             getFacebookUserProfileDetails().then(response => {
                 setFacebookToken(res.fb_token);
-                setProfileData([response])
+                setProfileData([response]);
             }).catch(() =>  hiiveToekna())
            }else{
             hiiveToekna();
@@ -56,14 +58,14 @@ const FacebookConnectButton = (props) => {
    
       const intervalId = setInterval(function() {
         if (win.closed) {
-            props.notify?.push('fb-connect-status', {
-                title: __(
-                  'Connected to facebook successfully',
-                  'wp-module-ecommerce'
-                ),
-                variant: 'success',
-                autoDismiss: 5000,
-              });
+            // props.notify?.push('fb-connect-status', {
+            //     title: __(
+            //       'Connected to facebook successfully',
+            //       'wp-module-ecommerce'
+            //     ),
+            //     variant: 'success',
+            //     autoDismiss: 5000,
+            //   });
             clearInterval(intervalId);
             window.location.reload();
         }
@@ -80,12 +82,12 @@ const FacebookConnectButton = (props) => {
                             return (
                                 <>
                                     <ul style={{ "paddingTop": "20px" }}>
-                                        <li><p>Facebook ID: {dataObj.id}</p></li>
-                                        <li><p>User Name: {dataObj.name}</p></li>
-                                        <li><p>User Email: {dataObj.email}</p></li>
-                                        <li><p>Profile pic:{dataObj.picture.data.url}</p></li>
+                                        <li><p>Facebook ID: {dataObj?.id}</p></li>
+                                        <li><p>User Name: {dataObj?.name}</p></li>
+                                        <li><p>User Email: {dataObj?.email}</p></li>
+                                        <li><p>Profile pic:{dataObj?.picture.data.url}</p></li>
                                     </ul>
-                                    <img src={`https://graph.facebook.com/${dataObj.id}/picture?type=small`} height={dataObj.picture.height} width={dataObj.picture.width} />
+                                    <img src={`https://graph.facebook.com/${dataObj?.id}/picture?type=small`} height={dataObj?.picture?.height} width={dataObj?.picture?.width} />
                                 </>
                             );
                         })}

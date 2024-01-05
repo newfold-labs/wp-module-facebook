@@ -43,8 +43,11 @@ export const checkAccessTokenValidity = (accessToken) => {
 
 export const getFacebookUserProfileDetails = () => {
        return apiFetch({url: endpoints.facebook_details}).then(res => {
+        if(res?.details?.error){
+            throw {"message": "failed to load the data", error: res?.details?.error} 
+        }
             return res?.details;
         }).catch ((error)=>{
-        throw {"message": "failed to load the data", error}
+        throw {"message": "failed to load the data", errorMsg : error}
     })
 }
