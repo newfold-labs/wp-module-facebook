@@ -72,6 +72,11 @@ class FacebookController {
 
     public function get_fb_details() {
         $fb_details = FacebookService::get_fb_details();
+        if($fb_details->error){
+            return new \WP_Error(
+                '400','Error', $fb_details->error
+            ); 
+        }
         return new \WP_REST_Response(
 			array(
 				'status'    => 'success', 

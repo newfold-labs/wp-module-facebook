@@ -22,7 +22,7 @@ class UtilityService{
 	public static function decrypt_token() {
         $fb_token = get_option('fb_token', false);
         $encrpt = new Encryption();
-        $decrypt_data = $fb_token ? $encrpt->decrypt($fb_token) : null;
+        $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token) : null;
         return $decrypt_data;
 	}
 
