@@ -13,8 +13,8 @@ export default {
         facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
     },
     cf_worker: {
-        login_screen: `https://192.168.1.6:8787/`,
-        get_token: "https://192.168.1.6:8787/get/token?hiive_token=",
-        delete_token: "https://192.168.1.6:8787/delete/token?hiive_token=",
+        login_screen: `https://127.0.0.1:8787/`,
+        get_token: "https://127.0.0.1:8787/get/token?hiive_token=",
+        delete_token: "https://127.0.0.1:8787/delete/token?hiive_token=",
     }
 }

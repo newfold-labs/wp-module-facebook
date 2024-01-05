@@ -1,6 +1,8 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook\RestApi;
 
+use NewfoldLabs\WP\Module\Data\HiiveConnection;
+
 use NewfoldLabs\WP\Module\Facebook\Services\FacebookService;
 use NewfoldLabs\WP\Module\Facebook\Services\UtilityService;
 class FacebookController {
@@ -10,6 +12,17 @@ class FacebookController {
    
 
     public function register_routes() {
+        register_rest_route(
+			$this->namespace,
+			$this->rest_base . '/hiive',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_hiive_token' ),
+					'permission_callback'  => array($this, 'rest_is_authorized_admin')
+				),
+			)
+		);
         register_rest_route(
             $this->namespace,
             $this->rest_base . '/logout',
@@ -58,6 +71,17 @@ class FacebookController {
             )
         );
     }
+    
+    public function get_hiive_token() {
+	    $hiive_token = HiiveConnection::get_auth_token();
+		if ( ! $hiive_token ) {}
+		return new \WP_REST_Response(
+			array(
+				'token' => $hiive_token ? $hiive_token : 'test2',
+			),
+			200
+		);
+	}
 
     public function logout() {
 		delete_option('fb_token');

@@ -1,10 +1,10 @@
 import apiFetch from "@wordpress/api-fetch";
 import constants from "./constants";
-import { NewfoldRuntime } from "@newfold-labs/wp-module-runtime";
+// import { NewfoldRuntime } from "@newfold-labs/wp-module-runtime";
 
-const endpoints = {
-    facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
-}
+// const endpoints = {
+//     facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
+// }
 
 export const getToken = () => {
     return apiFetch({
