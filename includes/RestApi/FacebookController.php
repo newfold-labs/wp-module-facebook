@@ -82,8 +82,7 @@ class FacebookController {
 
     public function post_fb_token($request) {
         $fb_token = UtilityService::get_token();
-        $encrypted_token = UtilityService::encrypt_token($fb_token);
-        update_option('fb_token', $encrypted_token);
+        update_option('fb_token', $fb_token);
         return new \WP_REST_Response(
 			array(
 				'status'    => 'success', 
