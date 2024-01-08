@@ -122,10 +122,10 @@ class FacebookController {
 
     public function get_fb_token() {
         $option = get_option('fb_token', false);
-        $fb_token = $option ? UtilityService::encrypt_token($option) : null;
         if(!isset($fb_token)){
             $fb_token = UtilityService::get_token();
             update_option("fb_token", $fb_token);
+            $fb_token = $fb_token ? UtilityService::encrypt_token($fb_token) : null;
         }
         return new \WP_REST_Response(
 			array(
