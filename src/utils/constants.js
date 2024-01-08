@@ -8,7 +8,7 @@ export default {
         token_phrase: "secret_token_phrase",
     },
     wordpress: {
-        access: NewfoldRuntime.createApiUrl('/newfold-ecommerce/v1/integrations/hiive'),
+        access: NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/hiive'),
         fb_token: NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/fb_token'),
         facebook_details : NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/details')
     },
