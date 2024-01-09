@@ -20,7 +20,7 @@ class UtilityService{
 	 * @return string Decrypted value
 	 */
 	public static function decrypt_token() {
-        $fb_token = get_option('fb_token', false);
+        $fb_token = get_option('fb_token', null);
         $encrpt = new Encryption();
         $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token) : null;
         return $decrypt_data;
