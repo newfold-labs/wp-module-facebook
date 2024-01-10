@@ -111,7 +111,9 @@ class FacebookController {
 
     public function post_fb_token($request) {
         $fb_token = UtilityService::get_token();
-        update_option('fb_token', $fb_token);
+        if(isset($fb_token)){
+            update_option('fb_token', $fb_token);
+        }
         return new \WP_REST_Response(
 			array(
 				'status'    => 'success', 
@@ -124,8 +126,11 @@ class FacebookController {
         $fb_token = get_option('fb_token', null);
         if(!isset($fb_token)){
             $fb_token = UtilityService::get_token();
-            update_option("fb_token", $fb_token);
-            $fb_token = $fb_token ? UtilityService::encrypt_token($fb_token) : null;
+            if(isset($fb_token)){
+                update_option("fb_token", $fb_token);
+                $fb_token = $fb_token ? UtilityService::encrypt_token($fb_token) : null;
+            }
+           
         }
         return new \WP_REST_Response(
 			array(
