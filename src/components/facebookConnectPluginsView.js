@@ -8,18 +8,15 @@ const FacebookConnectPluginView = () => {
   const [fbLogin, setFbLogin] = useState(false);
   const [loginInfo, setLoginInfo] = useState({});
   useEffect(() => {
-    console.log("fblogin", fbLogin);
     getFacebookUserProfileDetails().then((res) => {
-      console.log(res);
       setFbLogin(res === "token not found!" ? false : true);
       setLoginInfo(res);
     });
   }, []);
-  console.log("fblogin", fbLogin);
 
-  const handleLogoutFb = () => {
-    console.log("called");
-    facebookLogout().then((res) => console.log(res));
+  const handleLogoutFb = async () => {
+    await facebookLogout().then((res) => res);
+    window.location.reload();
   };
   return (
     fbLogin && (
