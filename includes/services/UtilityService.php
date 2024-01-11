@@ -27,13 +27,13 @@ class UtilityService{
         
         if($fb_token['expires_on']){
             
-            $expiry = substr($decrypt_data->expires_on, 0, 11);
+            $expiry = substr($fb_token["expires_on"], 0, 11);
             $days_left = UtilityService::dateDiffInDays($expiry);
             if($days_left <= 4){
                 FacebookService::get_token();
             }
         }
-        return $decrypt_data ? $decrypt_data->token : null;
+        return $decrypt_data ? $decrypt_data : null;
     }
 
     /**
