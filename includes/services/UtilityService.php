@@ -5,7 +5,7 @@ use NewfoldLabs\WP\Module\Facebook\Services\ExternalApiService;
 use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
 class UtilityService{
-        
+
     /**
     * Decrypt Facebook token
     *
@@ -47,7 +47,7 @@ class UtilityService{
      * Delete the token in cookie
      */
     public static function deleteTokenFromCookie() {
-        setcookie('fb_access_token', '', time() - 3600, '/', $_SERVER['HTTP_HOST'], false, false);
+        setcookie('fb_access_token', '', time() - (60 * 60 * 24 *30 *2), '/', $_SERVER['HTTP_HOST'], false, false);
     }
 }
 ?>
