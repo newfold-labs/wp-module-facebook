@@ -23,8 +23,8 @@ class FacebookService {
                 "expires_on" => $result->expiresIn
             );
             update_option('fb_token', $details);
+            UtilityService::storeTokenInCookie($details);
         }
-        // return $result ? encrypt_token($result->token) : null;
         return $result ? $result->token : null;
     }
 
@@ -40,11 +40,6 @@ class FacebookService {
         $fb_token = UtilityService::decrypt_token();
         if(!($fb_token)){
             $fb_token = FacebookService::get_token();
-            if(isset($fb_token)){
-                // $fb_token = $fb_token ? UtilityService::encrypt_token($fb_token) : null;
-
-                UtilityService::storeTokenInCookie($fb_token);
-            }
         }
         // if (!isset($_COOKIE['fb_access_token'])) {
         //     UtilityService::storeTokenInCookie($fb_token);  
