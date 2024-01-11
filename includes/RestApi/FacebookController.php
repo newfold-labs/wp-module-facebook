@@ -110,7 +110,7 @@ class FacebookController {
 	}
 
     public function post_fb_token($request) {
-        $fb_token = UtilityService::get_token();
+        $fb_token = FacebookService::get_token();
         if(isset($fb_token)){
             update_option('fb_token', $fb_token);
         }
@@ -123,19 +123,22 @@ class FacebookController {
 	}
 
     public function get_fb_token() {
-        $fb_token = get_option('fb_token', null);
+        $fb_token = $_COOKIE['fb_access_token'] ?? get_option('fb_token');
         if(!isset($fb_token)){
-            $fb_token = UtilityService::get_token();
+            $fb_token = FacebookService::get_token();
             if(isset($fb_token)){
                 update_option("fb_token", $fb_token);
-                $fb_token = $fb_token ? UtilityService::encrypt_token($fb_token) : null;
+                UtilityService::storeTokenInCookie($fb_token);
             }
-           
         }
+        // if (!isset($_COOKIE['fb_access_token'])) {
+        //     UtilityService::storeTokenInCookie($fb_token);
+        // }
         return new \WP_REST_Response(
 			array(
 				'status'    => 'success', 
-				'fb_token'     => $fb_token
+				'fb_token'     => $fb_token,
+                'cookie' => $fb_token
 			),200
 		);
 	}
