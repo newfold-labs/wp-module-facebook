@@ -111,9 +111,6 @@ class FacebookController {
 
     public function post_fb_token($request) {
         $fb_token = FacebookService::get_token();
-        if(isset($fb_token)){
-            update_option('fb_token', $fb_token);
-        }
         return new \WP_REST_Response(
 			array(
 				'status'    => 'success', 
@@ -123,11 +120,11 @@ class FacebookController {
 	}
 
     public function get_fb_token() {
-        $fb_token = $_COOKIE['fb_access_token'] ?? get_option('fb_token');
+        // $fb_token = $_COOKIE['fb_access_token'] ?? get_option('fb_token');
+        $fb_token = UtilityService::decrypt_token();
         if(!isset($fb_token)){
             $fb_token = FacebookService::get_token();
             if(isset($fb_token)){
-                update_option("fb_token", $fb_token);
                 UtilityService::storeTokenInCookie($fb_token);
             }
         }

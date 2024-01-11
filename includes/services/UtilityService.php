@@ -6,6 +6,13 @@ use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
 class UtilityService{
 
+    public static function dateDiffInDays($date) { 
+        $expiryDate = date_create($date); 
+        $today = date_create(); 
+        $interval = date_diff($expiryDate, $today);
+        return $interval->format('%a') - 54;
+    } 
+
     /**
     * Decrypt Facebook token
     *
@@ -15,8 +22,18 @@ class UtilityService{
     public static function decrypt_token() {
         $fb_token = $_COOKIE['fb_access_token'] ?? get_option('fb_token');
         $encrpt = new Encryption();
-        $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token) : null;
-        return $decrypt_data;
+       
+        $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token['token']) : null;
+        
+        if($fb_token['expires_on']){
+            
+            $expiry = substr($decrypt_data->expires_on, 0, 11);
+            $days_left = UtilityService::dateDiffInDays($expiry);
+            if($days_left <= 4){
+                FacebookService::get_token();
+            }
+        }
+        return $decrypt_data ? $decrypt_data->token : null;
     }
 
     /**

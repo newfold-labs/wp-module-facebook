@@ -19,8 +19,8 @@ export default {
     ),
   },
   cf_worker: {
-    login_screen: `https://192.168.0.173:8787/`,
-    get_token: "https://192.168.0.173:8787/get/token?hiive_token=",
-    delete_token: "https://192.168.0.173:8787/delete/token?hiive_token=",
+    login_screen: `https://192.168.1.6:8787/`,
+    get_token: "https://192.168.1.6:8787/get/token?hiive_token=",
+    delete_token: "https://192.168.1.6:8787/delete/token?hiive_token=",
   },
 };

@@ -29,7 +29,6 @@ class Facebook{
     public function __construct( Container $container ) {
         $this->container = $container;
         add_action( 'rest_api_init', array( $this, 'register_routes' ) );
-        add_action('pre_update_option_fb_token', array($this, 'encrypt_token'));
     }
 
     public function register_routes(){
@@ -39,18 +38,6 @@ class Facebook{
       }
     }
 
-  /**
-	 * Encrypt Facebook token
-	 *
-	 * @param string $value 
-	 *
-	 * @return string encrypted value
-	 */
-	public function encrypt_token( $value ) {
-        $encrpt = new Encryption();
-        $encrypt_data = $encrpt->encrypt($value);
-        return $encrypt_data;
-	}
 
 }
 
