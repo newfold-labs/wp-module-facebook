@@ -10,7 +10,7 @@ class UtilityService{
         $expiryDate = date_create($date); 
         $today = date_create(); 
         $interval = date_diff($expiryDate, $today);
-        return $interval->format('%a') - 54;
+        return $interval->format('%a');
     } 
 
     /**
