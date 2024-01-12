@@ -4,6 +4,11 @@ use NewfoldLabs\WP\ModuleLoader\Container;
 use function NewfoldLabs\WP\ModuleLoader\register;
 use  NewfoldLabs\WP\Module\Facebook\Facebook;
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+
 if ( function_exists( 'add_action' ) ) {
 	add_action(
 		'plugins_loaded',
