@@ -43,7 +43,9 @@ const FacebookConnectPluginView = () => {
             }}
           >
             Facebook -
-            <span style={{ fontWeight: "normal" }}>{loginInfo?.email}</span>
+            <span style={{ fontWeight: "normal" }}>
+              {loginInfo?.Users?.profile?.email}
+            </span>
           </p>
         </div>
         <button style={{ color: "#286BDE" }} onClick={() => handleLogoutFb()}>
