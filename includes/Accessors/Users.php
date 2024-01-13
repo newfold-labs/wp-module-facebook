@@ -4,8 +4,8 @@ namespace NewfoldLabs\WP\Module\Facebook\Accessors;
 class Users {
   // Properties
   public $profile =[];
-  public $posts =[];
-  public $images =[];
+  public $posts;
+  public $images ;
 
   // Methods
   function set_profile($profile) {

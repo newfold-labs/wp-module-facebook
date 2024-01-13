@@ -38,7 +38,7 @@ class FacebookService {
     }
 
     public static function get_fb_details(){
-
+        
         $FacebookData = new FacebookData();
         $data = get_option('nfd_fb_details');
         if ($data){
@@ -51,7 +51,22 @@ class FacebookService {
         if(isset($fb_token) && $fb_token){     
         $url = 'https://graph.facebook.com/me?fields=id,name,email,picture&access_token='. $fb_token;
         $result = ExternalApiService::CallAPI('GET', $url);
-       
+
+        if ( $result && $result->id) {
+            // $posturl = "https://graph.facebook.com/".$result->id."/posts?fields=id,name,message,story,created_time,link,description,caption,attachments{media,type,subattachments}&limit=10&access_token=".$fb_token."&format=json";
+            $posturl ="https://mocki.io/v1/4f93046e-e537-44be-968e-ec7309eb1ddd";
+            $postresults = ExternalApiService::CallAPI('GET', $posturl);
+            if($postresults && $postresults->data)
+            {
+                $FacebookData->get_Users()->set_posts($postresults->data);
+            }
+            $imageurl="https://mocki.io/v1/f731af26-a678-4b16-9373-3f8d5cd28039";
+            $imageresults = ExternalApiService::CallAPI('GET', $imageurl);
+            if($imageresults && $postresults->data)
+            {
+                $FacebookData->get_Users()->set_images($imageresults->data);
+            }
+        }
         $FacebookData->set_source("facebook");
         $FacebookData->get_Users()->set_profile($result);
         $FacebookData->get_Business();
