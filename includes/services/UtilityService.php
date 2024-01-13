@@ -68,14 +68,14 @@ class UtilityService{
     public static function storeTokenInCookie($token) {
         $token = json_encode($token);
         // setting cookie for 2 months
-        setcookie('fb_access_token', $token, time() + (60 * 60 * 24 *30 *2), '/', $_SERVER['HTTP_HOST'], false, false);
+        setcookie('fb_access_token', $token, time() + (60 * 60 * 24 *30 *2));
     }
 
     /**
      * Delete the token in cookie
      */
     public static function deleteTokenFromCookie() {
-        setcookie('fb_access_token', '', time() - (60 * 60 * 24 *30 *2), '/', $_SERVER['HTTP_HOST'], false, false);
+        setcookie('fb_access_token', '', time() - (60 * 60 * 24 *30 *2));
     }
 }
 ?>
