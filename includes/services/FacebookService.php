@@ -66,6 +66,12 @@ class FacebookService {
             {
                 $FacebookData->get_Users()->set_images($imageresults->data);
             }
+            $businessurl="https://mocki.io/v1/26ad7ee1-e6f0-40f6-bd52-4db374081460";
+            $businessresults = ExternalApiService::CallAPI('GET', $businessurl);
+            if($businessresults && $businessresults->data)
+            {
+                $FacebookData->get_Business()->set_profile($businessresults->data);
+            }
         }
         $FacebookData->set_source("facebook");
         $FacebookData->get_Users()->set_profile($result);
