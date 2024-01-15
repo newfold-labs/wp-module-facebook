@@ -53,20 +53,19 @@ class FacebookService {
         $result = ExternalApiService::CallAPI('GET', $url);
 
         if ( $result && $result->id) {
-            // $posturl = "https://graph.facebook.com/".$result->id."/posts?fields=id,name,message,story,created_time,link,description,caption,attachments{media,type,subattachments}&limit=10&access_token=".$fb_token."&format=json";
-            $posturl ="https://mocki.io/v1/4f93046e-e537-44be-968e-ec7309eb1ddd";
+            $posturl = "https://graph.facebook.com/".$result->id."/posts?fields=id,name,message,story,created_time,link,description,caption,attachments{media,type,subattachments}&limit=10&access_token=".$fb_token."&format=json";
             $postresults = ExternalApiService::CallAPI('GET', $posturl);
             if($postresults && $postresults->data)
             {
                 $FacebookData->get_Users()->set_posts($postresults->data);
             }
-            $imageurl="https://mocki.io/v1/f731af26-a678-4b16-9373-3f8d5cd28039";
+            $imageurl="https://graph.facebook.com/v18.0/me/photos?fields=link,picture,alt_text,created_time,id&limit=10&access_token=".$fb_token."&format=json";
             $imageresults = ExternalApiService::CallAPI('GET', $imageurl);
             if($imageresults && $postresults->data)
             {
                 $FacebookData->get_Users()->set_images($imageresults->data);
             }
-            $businessurl="https://mocki.io/v1/26ad7ee1-e6f0-40f6-bd52-4db374081460";
+            $businessurl = "https://graph.facebook.com/v18.0/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks&access_token=".$fb_token."&format=json";
             $businessresults = ExternalApiService::CallAPI('GET', $businessurl);
             if($businessresults && $businessresults->data)
             {
