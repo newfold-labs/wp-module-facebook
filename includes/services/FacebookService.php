@@ -81,6 +81,11 @@ class FacebookService {
                     $FacebookData->get_Business()->set_posts($businessPostsResults->data);
                 }
             }
+            $businessImages = "https://graph.facebook.com/".$FacebookData->get_Business()->get_profile()[0]->id."/photos?fields=created_time,alt_text,picture,id&limit=10&access_token=".$fb_token."&format=json";
+            $businessImagesResults= ExternalApiService::CallAPI('GET', $businessImages);
+            if ($businessImagesResults && $businessImagesResults->data){
+                $FacebookData->get_Business()->set_images($businessImagesResults->data);
+            }
         }
         $FacebookData->set_source("facebook");
         $FacebookData->get_Users()->set_profile($result);
