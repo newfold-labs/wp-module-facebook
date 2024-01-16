@@ -71,6 +71,16 @@ class FacebookService {
             {
                 $FacebookData->get_Business()->set_profile($businessresults->data);
             }
+            $businessposttoken ="https://graph.facebook.com/".$FacebookData->get_Business()->get_profile()[0]->id."?fields=access_token&access_token=".$fb_token."&format=json";
+            $businessposttokenresult = ExternalApiService::CallAPI('GET', $businessposttoken);
+            if($businessposttokenresult)
+            {
+                $businessPosts ="https://graph.facebook.com/".$FacebookData->get_Business()->get_profile()[0]->id."/feed?access_token=".$businessposttokenresult->access_token."&format=json";         
+                $businessPostsResults =ExternalApiService::CallAPI('GET', $businessPosts);
+                if($businessPostsResults && $businessPostsResults->data) {
+                    $FacebookData->get_Business()->set_posts($businessPostsResults->data);
+                }
+            }
         }
         $FacebookData->set_source("facebook");
         $FacebookData->get_Users()->set_profile($result);
