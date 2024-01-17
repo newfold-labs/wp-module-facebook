@@ -82,12 +82,12 @@ const FacebookConnectButton = (props) => {
                             return (
                                 <>
                                     <ul style={{ "paddingTop": "20px" }}>
-                                        <li><p>Facebook ID: {dataObj?.id}</p></li>
-                                        <li><p>User Name: {dataObj?.name}</p></li>
-                                        <li><p>User Email: {dataObj?.email}</p></li>
-                                        <li><p>Profile pic:{dataObj?.picture.data.url}</p></li>
+                                        <li><p>Facebook ID: {dataObj?.Users?.profile?.id}</p></li>
+                                        <li><p>User Name: {dataObj?.Users?.profile?.name}</p></li>
+                                        <li><p>User Email: {dataObj?.Users?.profile?.email}</p></li>
+                                        <li><p>Profile pic:{dataObj?.Users?.profile?.picture.data.url}</p></li>
                                     </ul>
-                                    <img src={`https://graph.facebook.com/${dataObj?.id}/picture?type=small`} height={dataObj?.picture?.height} width={dataObj?.picture?.width} />
+                                    <img src={`https://graph.facebook.com/${dataObj?.Users?.profile?.id}/picture?type=small`} height={dataObj?.Users?.profile?.picture?.height} width={dataObj?.Users?.profile?.picture?.width} />
                                 </>
                             );
                         })}

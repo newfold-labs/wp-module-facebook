@@ -89,7 +89,7 @@ class FacebookService {
         }
         $FacebookData->set_source("facebook");
         $FacebookData->get_Users()->set_profile($result);
-        $FacebookData->get_Business();
+       
         //need to fetch and attach data for future 
         update_option('nfd_fb_details', $FacebookData);
         return array($FacebookData);
