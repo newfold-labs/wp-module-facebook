@@ -59,13 +59,13 @@ class FacebookService {
             {
                 $FacebookData->get_Users()->set_posts($postresults->data);
             }
-            $imageurl="https://graph.facebook.com/v18.0/me/photos?fields=link,picture,alt_text,created_time,id&limit=10&access_token=".$fb_token."&format=json";
+            $imageurl="https://graph.facebook.com/me/photos/uploaded?fields=link,picture,alt_text,created_time,id&limit=10&access_token=".$fb_token."&format=json";
             $imageresults = ExternalApiService::CallAPI('GET', $imageurl);
             if($imageresults && $postresults->data)
             {
                 $FacebookData->get_Users()->set_images($imageresults->data);
             }
-            $businessurl = "https://graph.facebook.com/v18.0/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks&access_token=".$fb_token."&format=json";
+            $businessurl = "https://graph.facebook.com/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks&access_token=".$fb_token."&format=json";
             $businessresults = ExternalApiService::CallAPI('GET', $businessurl);
             if($businessresults && $businessresults->data)
             {

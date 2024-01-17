@@ -6,7 +6,7 @@ import {
 
 const FacebookConnectPluginView = () => {
   const [fbLogin, setFbLogin] = useState(false);
-  const [loginInfo, setLoginInfo] = useState({});
+  const [loginInfo, setLoginInfo] = useState();
   useEffect(() => {
     getFacebookUserProfileDetails().then((res) => {
       setFbLogin(res === "token not found!" ? false : true);
