@@ -20,15 +20,13 @@
   },
   "homepage": "https://github.com/newfold-labs/wp-module-facebook#readme",
   "dependencies": {
-    "@newfold/ui-component-library": "^1.0.0",
     "@wordpress/api-fetch": "^6.42.0",
     "react": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "@newfold-labs/wp-module-runtime": "^1.0.0"
+    "@newfold-labs/wp-module-runtime": "^1.0.0",
+    "classnames": "^2.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.7",
-    "@wordpress/scripts": "26.0.0",
-    "tailwindcss": "^3.3.5"
+    "@wordpress/scripts": "26.0.0"
   }
 }
