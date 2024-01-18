@@ -10,7 +10,12 @@ const FacebookConnectPluginView = () => {
   useEffect(() => {
     getFacebookUserProfileDetails().then((res) => {
       setFbLogin(res === "token not found!" ? false : true);
-      setLoginInfo(res);
+      if(Array.isArray(res)){
+        setLoginInfo(res[0]);
+      }else{
+        setLoginInfo(res);
+      }
+     
     });
   }, []);
 

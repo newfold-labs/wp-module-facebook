@@ -1,7 +1,6 @@
 <?php 
 namespace NewfoldLabs\WP\Module\Facebook\Services;
 
-use NewfoldLabs\WP\Module\Facebook\Services\ExternalApiService;
 use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
 class UtilityService{
