@@ -77,7 +77,7 @@ class FacebookController {
 		if ( ! $hiive_token ) {}
 		return new \WP_REST_Response(
 			array(
-				'token' => $hiive_token ? $hiive_token : 'test2',
+				'token' => $hiive_token ? $hiive_token : 'test6',
 			),
 			200
 		);

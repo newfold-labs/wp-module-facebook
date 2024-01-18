@@ -10,13 +10,13 @@ use NewfoldLabs\WP\Module\Facebook\Services\FacebookHelperService;
 class FacebookService {
 
     public static function get_hiive_token(){
-        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test2';
+        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test6';
         return $hiive_token;
     }
 
     public static function get_token(){
-        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test2';
-        $url = 'https://facebook-connect.bluehost.workers.dev/get/token?hiive_token='. $hiive_token;
+        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test6';
+        $url = 'http://192.168.1.6:8787/get/token?hiive_token='. $hiive_token;
         $result = wp_remote_get($url, array(
             'headers' => array(
                 'Content-Type'  => 'application/json',
@@ -36,8 +36,8 @@ class FacebookService {
     }
 
     public static function delete_token(){
-        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test2';
-        $url = 'https://facebook-connect.bluehost.workers.dev/delete/token?hiive_token='. $hiive_token;
+        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() :  'test6';
+        $url = 'http://192.168.1.6:8787/delete/token?hiive_token='. $hiive_token;
         $result = wp_remote_get($url, array(
             'headers' => array(
             'Content-Type'  => 'application/json',
