@@ -39,11 +39,8 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 		console.error( err );
 	} );
 
-	useEffect( () => {
-		apiFetch( { url: constants.wordpress.access } ).then( ( res ) => {
-			res.token && setFieldValue( res.token );
-		} );
-		apiFetch( { url: constants.wordpress.fb_token } ).then( ( res ) => {
+    const getFbData = () => {
+        apiFetch( { url: constants.wordpress.fb_token } ).then( ( res ) => {
 			if ( res.fb_token ) {
 				getFacebookUserProfileDetails().then( ( response ) => {
 					setFacebookToken( res.fb_token );
@@ -56,6 +53,12 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 				hiiveToken();
 			}
 		} );
+    }
+	useEffect( () => {
+		apiFetch( { url: constants.wordpress.access } ).then( ( res ) => {
+			res.token && setFieldValue( res.token );
+		} );
+		getFbData();
 	}, [] );
 
 	const connectFacebook = () => {
@@ -64,7 +67,7 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 		const intervalId = setInterval( function() {
 			if ( win.closed ) {
 				clearInterval( intervalId );
-				window.location.reload();
+				getFbData();
 			}
 		}, 5000 );
 	};
