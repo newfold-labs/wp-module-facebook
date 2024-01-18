@@ -67,7 +67,7 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 		const intervalId = setInterval( function() {
 			if ( win.closed ) {
 				clearInterval( intervalId );
-				getFbData();
+				window.location.reload();
 			}
 		}, 5000 );
 	};
