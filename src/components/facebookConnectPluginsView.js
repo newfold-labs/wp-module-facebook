@@ -44,7 +44,7 @@ const FacebookConnectPluginView = () => {
           >
             Facebook -
             <span style={{ fontWeight: "normal" }}>
-              {loginInfo?.Users?.profile?.email}
+              {loginInfo?.User?.profile?.email}
             </span>
           </p>
         </div>

@@ -5,7 +5,7 @@ namespace NewfoldLabs\WP\Module\Facebook\Services;
 use NewfoldLabs\WP\Module\Data\HiiveConnection;
 use NewfoldLabs\WP\Module\Facebook\Services\ExternalApiService;
 use NewfoldLabs\WP\Module\Facebook\Services\UtilityService; 
-use NewfoldLabs\WP\Module\Facebook\Accessors\FacebookData;
+use NewfoldLabs\WP\Module\Facebook\Accessors\SocialData;
 
 class FacebookService {
 
@@ -39,7 +39,7 @@ class FacebookService {
 
     public static function get_fb_details(){
         
-        $FacebookData = new FacebookData();
+        $FacebookData = new SocialData();
         $data = get_option('nfd_fb_details');
         if ($data){
             return $data;
@@ -57,13 +57,13 @@ class FacebookService {
             $postresults = ExternalApiService::CallAPI('GET', $posturl);
             if($postresults && $postresults->data)
             {
-                $FacebookData->get_Users()->set_posts($postresults->data);
+                $FacebookData->get_User()->set_posts($postresults->data);
             }
             $imageurl="https://graph.facebook.com/me/photos/uploaded?fields=link,picture,alt_text,created_time,id&limit=10&access_token=".$fb_token."&format=json";
             $imageresults = ExternalApiService::CallAPI('GET', $imageurl);
             if($imageresults && $postresults->data)
             {
-                $FacebookData->get_Users()->set_images($imageresults->data);
+                $FacebookData->get_User()->set_images($imageresults->data);
             }
             $businessurl = "https://graph.facebook.com/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks&access_token=".$fb_token."&format=json";
             $businessresults = ExternalApiService::CallAPI('GET', $businessurl);
@@ -88,7 +88,7 @@ class FacebookService {
             }
         }
         $FacebookData->set_source("facebook");
-        $FacebookData->get_Users()->set_profile($result);
+        $FacebookData->get_User()->set_profile($result);
         $FacebookData->get_Business();
         //need to fetch and attach data for future 
         update_option('nfd_fb_details', $FacebookData);

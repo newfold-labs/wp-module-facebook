@@ -1,11 +1,11 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook\Accessors;
 
-class Business {
+class User {
   // Properties
   public $profile =[];
-  public $posts =[];
-  public $images =[];
+  public $posts;
+  public $images ;
 
   // Methods
   function set_profile($profile) {
