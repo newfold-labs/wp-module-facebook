@@ -45,7 +45,7 @@ const FacebookConnectButton = (props) => {
            if(res.fb_token){
             getFacebookUserProfileDetails().then(response => {
                 setFacebookToken(res.fb_token);
-                setProfileData([response]);
+                setProfileData(response);
             }).catch(() =>  hiiveToekna())
            }else{
             hiiveToekna();
