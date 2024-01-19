@@ -4,7 +4,7 @@ namespace NewfoldLabs\WP\Module\Facebook\Services;
 
 use NewfoldLabs\WP\Module\Data\HiiveConnection;
 use NewfoldLabs\WP\Module\Facebook\Services\UtilityService; 
-use NewfoldLabs\WP\Module\Facebook\Accessors\FacebookData;
+use NewfoldLabs\WP\Module\Facebook\Accessors\SocialData;
 use NewfoldLabs\WP\Module\Facebook\Services\FacebookHelperService;
 
 class FacebookService {
@@ -57,7 +57,7 @@ class FacebookService {
 
     public static function get_fb_details(){
         
-        $FacebookData = new FacebookData();
+        $FacebookData = new SocialData();
         $data = get_option('nfd_fb_details');
         if ($data){
             return array($data);
@@ -89,7 +89,7 @@ class FacebookService {
         }
 
         $FacebookData->set_source("facebook");
-        $FacebookData->get_Users()->set_profile($response);
+        $FacebookData->get_User()->set_profile($response);
        
         //need to fetch and attach data for future 
         update_option('nfd_fb_details', $FacebookData);

@@ -1,12 +1,5 @@
-import { Button } from "@newfold/ui-component-library";
 import apiFetch from "@wordpress/api-fetch";
-import React, { useEffect, useState } from "react";
-import {
-  checkAccessTokenValidity,
-  getFacebookUserPosts,
-  getFacebookUserProfileDetails,
-  getToken,
-} from "../utils/helper";
+import { getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
 
 export const facebookConnectHelper = async () => {
@@ -37,13 +30,13 @@ export const facebookConnectHelper = async () => {
           .then((resp) => {
             if (resp.token) {
               postToken(resp.token);
-              facebookAccess=resp.token;
+              facebookAccess = resp.token;
             }
           })
           .catch((err) => {
             console.log(err);
           });
-        fieldValue =res.token;
+        fieldValue = res.token;
       })
       .catch((err) => {
         console.log(err);
