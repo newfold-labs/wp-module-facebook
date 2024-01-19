@@ -44,7 +44,7 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 			if ( res.fb_token ) {
 				getFacebookUserProfileDetails().then( ( response ) => {
 					setFacebookToken( res.fb_token );
-					setProfileData( [ response ] );
+					setProfileData( response );
                     if ( typeof onConnect === 'function' ) {
                         onConnect()
                     }
@@ -83,10 +83,10 @@ const FacebookConnectButton = ( { className, children, showData, onConnect, onDi
 							return (
 								<>
 									<ul style={ { paddingTop: '20px' } }>
-										<li><p>Facebook ID: { dataObj?.Users?.profile?.id }</p></li>
-										<li><p>User Name: { dataObj?.Users?.profile?.name }</p></li>
-										<li><p>User Email: { dataObj?.Users?.profile?.email }</p></li>
-										<li><p>Profile pic:{ dataObj?.Users?.profile?.picture?.data?.url }</p></li>
+										<li><p>Facebook ID: { dataObj?.User?.profile?.id }</p></li>
+										<li><p>User Name: { dataObj?.User?.profile?.name }</p></li>
+										<li><p>User Email: { dataObj?.User?.profile?.email }</p></li>
+										<li><p>Profile pic:{ dataObj?.User?.profile?.picture?.data?.url }</p></li>
 									</ul>
 									<img src={ `https://graph.facebook.com/${ dataObj?.id }/picture?type=small` } height={ dataObj?.picture?.height } width={ dataObj?.picture?.width } />
 								</>
