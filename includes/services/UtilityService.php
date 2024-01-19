@@ -22,6 +22,7 @@ class UtilityService
      */
     public static function decrypt_token()
     {
+        $fb_token= null;
         if ($_COOKIE['fb_access_token']) {
             $fb_token = json_decode(stripslashes($_COOKIE['fb_access_token']), true);
         } elseif (get_option('fb_token')) {
@@ -37,7 +38,7 @@ class UtilityService
 
         $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token['token']) : null;
 
-        if ($fb_token['expires_on']) {
+        if ($fb_token && $fb_token['expires_on']) {
 
             $expiry = substr($fb_token["expires_on"], 0, 11);
             $days_left = UtilityService::dateDiffInDays($expiry);

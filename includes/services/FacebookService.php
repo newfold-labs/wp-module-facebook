@@ -34,7 +34,7 @@ class FacebookService
         if (is_wp_error($request)) {
             return array("error" => "we're unable to process the request!");
         }
-        if ($response->token) {
+        if (!empty($response) && $response->token) {
             $details = array(
                 "token" => UtilityService::encrypt_token($response->token),
                 "expires_on" => $response->expiresIn
@@ -76,6 +76,7 @@ class FacebookService
         $fb_token = UtilityService::decrypt_token();
         if (!($fb_token)) {
             $fb_token = FacebookService::get_token();
+            $fb_token = $fb_token->token;
         }
         if (isset($fb_token) && $fb_token) {
             $url = NFD_FACECBOOK_GRAPH_BASE . '/me?fields=id,name,email,picture&access_token=' . $fb_token;
@@ -106,7 +107,7 @@ class FacebookService
             $FacebookData->get_User()->set_profile($response);
 
             //need to fetch and attach data for future 
-            update_option('nfd_fb_details', $FacebookData);
+            // update_option('nfd_fb_details', $FacebookData);
             return array($FacebookData);
         }
         return array("error" => "token not found!");
