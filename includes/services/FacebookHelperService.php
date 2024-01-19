@@ -13,7 +13,7 @@ class FacebookHelperService{
     $postsResponse = json_decode(wp_remote_retrieve_body($postresults));
         if($postsResponse && $postsResponse->data)
         {
-            $FacebookData->get_Users()->set_posts($postsResponse->data);
+            $FacebookData->get_User()->set_posts($postsResponse->data);
         }
     }
 
@@ -28,7 +28,7 @@ class FacebookHelperService{
         $imagesResponse = json_decode(wp_remote_retrieve_body($imageresults));
             if($imagesResponse && $imagesResponse->data)
             {
-                $FacebookData->get_Users()->set_images($imagesResponse->data);
+                $FacebookData->get_User()->set_images($imagesResponse->data);
             }
     }
 

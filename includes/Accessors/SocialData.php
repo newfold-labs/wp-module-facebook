@@ -1,18 +1,18 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook\Accessors;
 
-use NewfoldLabs\WP\Module\Facebook\Accessors\Users;
+use NewfoldLabs\WP\Module\Facebook\Accessors\User;
 use NewfoldLabs\WP\Module\Facebook\Accessors\Business;
 
-class FacebookData {
+class SocialData {
   // Properties
   public $source ="";
-  public $Users;
+  public $User;
   public $Business;
   public function __construct ()
   {
-      $this->Users = new Users();
-      $this->Business = new Business();
+      $this->User = new User();
+      $this->Business = new User();
 
   }
 
@@ -24,11 +24,11 @@ class FacebookData {
     return $this->source;
   }
 
-  function set_Users($Users) {
-    $this->Users = $Users;
+  function set_User($User) {
+    $this->User = $User;
   }
-  function get_Users() {
-    return $this->Users;
+  function get_User() {
+    return $this->User;
   }
 
   function set_Business($Business) {
