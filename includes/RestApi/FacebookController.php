@@ -97,9 +97,9 @@ class FacebookController {
 
     public function get_fb_details() {
         $fb_details = FacebookService::get_fb_details();
-        if($fb_details->error){
+        if(!empty($fb_details->error) || !empty($fb_details["error"])){
             return new \WP_Error(
-                '400','Error', $fb_details->error
+                'Bad request', $fb_details["error"], array('status' => 400)
             ); 
         }
         return new \WP_REST_Response(
