@@ -110,7 +110,7 @@ class FacebookService
             // update_option('nfd_fb_details', $FacebookData);
             return array($FacebookData);
         }
-        return array("error" => "token not found!");
+        return array("message" => "token not found!");
     }
 }
 ?>
