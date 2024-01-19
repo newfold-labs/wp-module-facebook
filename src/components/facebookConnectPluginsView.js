@@ -4,7 +4,7 @@ import {
   facebookLogout,
 } from "../utils/helper.js";
 
-const FacebookConnectPluginView = () => {
+const FacebookConnectPluginView = ({ Res }) => {
   const [fbLogin, setFbLogin] = useState(false);
   const [loginInfo, setLoginInfo] = useState();
   useEffect(() => {
@@ -13,7 +13,7 @@ const FacebookConnectPluginView = () => {
       if (Array.isArray(res)) setLoginInfo(res[0]);
       else setLoginInfo(res);
     });
-  }, []);
+  }, [Res]);
 
   const handleLogoutFb = async () => {
     await facebookLogout().then((res) => res);

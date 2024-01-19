@@ -23,7 +23,7 @@ export const facebookConnectHelper = async () => {
       });
   };
 
-  const hiiveToekna = () =>
+  const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
       .then((res) => {
         getToken()
@@ -42,9 +42,9 @@ export const facebookConnectHelper = async () => {
         console.log(err);
       });
 
-  await hiiveToekna();
+  await hiiveToken();
   await apiFetch({ url: constants.wordpress.fb_token }).then(async (res) => {
-    if (res.fb_token) {
+    if (res?.fb_token) {
       await getFacebookUserProfileDetails().then((response) => {
         facebookAccess = res.fb_token;
         profileData = [response];
@@ -62,8 +62,8 @@ export const facebookConnectHelper = async () => {
       const intervalId = setInterval(async function () {
         if (win.closed) {
           clearInterval(intervalId);
-          await hiiveToekna();
-          window.location.reload();
+          await hiiveToken();
+          // window.location.reload();
           return profileData;
         }
       }, 1000);

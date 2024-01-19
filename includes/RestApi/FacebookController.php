@@ -145,7 +145,7 @@ class FacebookController
         return new \WP_REST_Response(
             array(
                 'status' => 'success',
-                'fb_token' => $fb_token
+                'fb_token' => $fb_token->token
             ),
             200
         );
