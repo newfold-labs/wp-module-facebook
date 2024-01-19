@@ -19,7 +19,7 @@ export default {
     ),
   },
   cf_worker: {
-    login_screen: `https://facebook-connect.bluehost.workers.dev/`,
+    login_screen: "https://facebook-connect.bluehost.workers.dev/",
     get_token: "https://facebook-connect.bluehost.workers.dev/get/token?hiive_token=",
     delete_token: "https://facebook-connect.bluehost.workers.dev/delete/token?hiive_token=",
   },
