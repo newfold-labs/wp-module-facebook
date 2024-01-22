@@ -2,7 +2,6 @@
 namespace NewfoldLabs\WP\Module\Facebook\Accessors;
 
 use NewfoldLabs\WP\Module\Facebook\Accessors\User;
-use NewfoldLabs\WP\Module\Facebook\Accessors\Business;
 
 class SocialData {
   // Properties
