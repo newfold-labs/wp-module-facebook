@@ -107,7 +107,7 @@ class FacebookService
             $FacebookData->get_User()->set_profile($response);
 
             //need to fetch and attach data for future 
-            // update_option('nfd_fb_details', $FacebookData);
+            update_option('nfd_fb_details', $FacebookData);
             return array($FacebookData);
         }
         return "token not found!";
