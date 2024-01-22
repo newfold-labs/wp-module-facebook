@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { facebookLogout } from "../utils/helper.js";
+import { Spinner } from "@wordpress/components";
 
 const FacebookConnectPluginView = ({ fbLogin, loginInfo, getFbDetails }) => {
+  const [logoutLoading, setLogoutLoading] = useState(false);
+
+  useEffect(() => setLogoutLoading(false), []);
+
   const handleLogoutFb = async () => {
-    await facebookLogout().then(() => getFbDetails());
+    setLogoutLoading(true);
+    await facebookLogout().then(() => {
+      getFbDetails();
+    });
+    setLogoutLoading(false);
   };
   return (
     fbLogin && (
@@ -46,14 +55,18 @@ const FacebookConnectPluginView = ({ fbLogin, loginInfo, getFbDetails }) => {
             </span>
           </p>
         </div>
-        <button
-          style={{
-            color: "#286BDE",
-          }}
-          onClick={() => handleLogoutFb()}
-        >
-          Disconnect
-        </button>
+        {logoutLoading ? (
+          <Spinner />
+        ) : (
+          <button
+            style={{
+              color: "#286BDE",
+            }}
+            onClick={() => handleLogoutFb()}
+          >
+            Disconnect
+          </button>
+        )}
       </div>
     )
   );
