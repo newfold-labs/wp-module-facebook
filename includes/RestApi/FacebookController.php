@@ -138,6 +138,7 @@ class FacebookController
         $fb_token = UtilityService::decrypt_token();
         if (!isset($fb_token)) {
             $fb_token = FacebookService::get_token();
+            $fb_token = $fb_token->token;
         }
         // if (!isset($_COOKIE['fb_access_token'])) {
         //     UtilityService::storeTokenInCookie($fb_token);
@@ -145,7 +146,7 @@ class FacebookController
         return new \WP_REST_Response(
             array(
                 'status' => 'success',
-                'fb_token' => $fb_token->token
+                'fb_token' => $fb_token
             ),
             200
         );
