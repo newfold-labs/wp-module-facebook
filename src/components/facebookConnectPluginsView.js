@@ -1,23 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-  getFacebookUserProfileDetails,
-  facebookLogout,
-} from "../utils/helper.js";
+import React from "react";
+import { facebookLogout } from "../utils/helper.js";
 
-const FacebookConnectPluginView = () => {
-  const [fbLogin, setFbLogin] = useState(false);
-  const [loginInfo, setLoginInfo] = useState();
-  useEffect(() => {
-    getFacebookUserProfileDetails().then((res) => {
-      setFbLogin(res === "token not found!" ? false : true);
-      if (Array.isArray(res)) setLoginInfo(res[0]);
-      else setLoginInfo(res);
-    });
-  }, []);
-
+const FacebookConnectPluginView = ({ fbLogin, loginInfo, getFbDetails }) => {
   const handleLogoutFb = async () => {
-    await facebookLogout().then((res) => res);
-    window.location.reload();
+    await facebookLogout().then(() => getFbDetails());
   };
   return (
     fbLogin && (

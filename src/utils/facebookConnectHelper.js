@@ -2,7 +2,7 @@ import apiFetch from "@wordpress/api-fetch";
 import { getFacebookUserProfileDetails, getToken } from "../utils/helper";
 import constants from "../utils/constants";
 
-export const facebookConnectHelper = async () => {
+export const facebookConnectHelper = async (getFbDetails) => {
   let fieldValue = "";
   let facebookAccess = null;
   let profileData = [];
@@ -63,12 +63,9 @@ export const facebookConnectHelper = async () => {
         if (win.closed) {
           clearInterval(intervalId);
           await hiiveToken();
-          window.location.reload();
-          return profileData;
+          getFbDetails();
         }
       }, 1000);
     }
   });
-
-  // return profileData;
 };
