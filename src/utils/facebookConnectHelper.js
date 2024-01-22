@@ -63,7 +63,7 @@ export const facebookConnectHelper = async () => {
         if (win.closed) {
           clearInterval(intervalId);
           await hiiveToken();
-          // window.location.reload();
+          window.location.reload();
           return profileData;
         }
       }, 1000);
