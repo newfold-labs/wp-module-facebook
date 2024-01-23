@@ -1,8 +1,9 @@
 <?php
 
-use NewfoldLabs\WP\ModuleLoader\Container;
-use function NewfoldLabs\WP\ModuleLoader\register;
 use NewfoldLabs\WP\Module\Facebook\Facebook;
+use NewfoldLabs\WP\ModuleLoader\Container;
+
+use function NewfoldLabs\WP\ModuleLoader\register;
 
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
@@ -30,8 +31,6 @@ if (function_exists('add_action')) {
 					'isHidden' => true,
 				]
 			);
-
 		}
 	);
-
 }

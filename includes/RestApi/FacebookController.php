@@ -2,7 +2,6 @@
 namespace NewfoldLabs\WP\Module\Facebook\RestApi;
 
 use NewfoldLabs\WP\Module\Data\HiiveConnection;
-
 use NewfoldLabs\WP\Module\Facebook\Services\FacebookService;
 use NewfoldLabs\WP\Module\Facebook\Services\UtilityService;
 
@@ -11,7 +10,6 @@ class FacebookController
     protected $namespace = 'newfold-facebook/v1';
 
     protected $rest_base = '/facebook';
-
 
     public function register_routes()
     {
@@ -26,6 +24,7 @@ class FacebookController
                 ),
             )
         );
+
         register_rest_route(
             $this->namespace,
             $this->rest_base . '/logout',
@@ -77,12 +76,10 @@ class FacebookController
 
     public function get_hiive_token()
     {
-        $hiive_token = HiiveConnection::get_auth_token();
-        if (!$hiive_token) {
-        }
+        $hiive_token = FacebookService::get_hiive_token();
         return new \WP_REST_Response(
             array(
-                'token' => $hiive_token ? $hiive_token : 'test2',
+                'token' => $hiive_token ? $hiive_token : '',
             ),
             200
         );
@@ -91,7 +88,7 @@ class FacebookController
     public function logout()
     {
         delete_option('fb_token');
-        delete_option("nfd_fb_details");
+        delete_option('nfd_fb_details');
         $fb = FacebookService::delete_token();
         return new \WP_REST_Response(
             array(
@@ -105,10 +102,10 @@ class FacebookController
     public function get_fb_details()
     {
         $fb_details = FacebookService::get_fb_details();
-        if (!empty($fb_details->error) || !empty($fb_details["error"])) {
+        if (!empty($fb_details->error) || !empty($fb_details['error'])) {
             return new \WP_Error(
                 'Bad request',
-                $fb_details["error"],
+                $fb_details['error'],
                 array('status' => 400)
             );
         }
@@ -140,9 +137,6 @@ class FacebookController
             $fb_token = FacebookService::get_token();
             $fb_token = $fb_token->token;
         }
-        // if (!isset($_COOKIE['fb_access_token'])) {
-        //     UtilityService::storeTokenInCookie($fb_token);
-        // }
         return new \WP_REST_Response(
             array(
                 'status' => 'success',
@@ -157,6 +151,4 @@ class FacebookController
         $admin = 'manage_options';
         return \is_user_logged_in() && \current_user_can($admin);
     }
-
 }
-?>

@@ -1,8 +1,8 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook;
 
-use NewfoldLabs\WP\ModuleLoader\Container;
 use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
+use NewfoldLabs\WP\ModuleLoader\Container;
 
 /**
  * Class Facebook
@@ -11,8 +11,8 @@ use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
  */
 class Facebook
 {
-
-  /* Container loaded from the brand plugin.
+  /*
+   * Container loaded from the brand plugin.
    *
    * @var Container
    */
@@ -40,8 +40,4 @@ class Facebook
       $rest_api->register_routes();
     }
   }
-
-
 }
-
-?>

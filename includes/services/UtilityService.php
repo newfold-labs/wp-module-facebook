@@ -5,7 +5,6 @@ use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
 class UtilityService
 {
-
     public static function dateDiffInDays($date)
     {
         $expiryDate = date_create($date);
@@ -22,14 +21,14 @@ class UtilityService
      */
     public static function decrypt_token()
     {
-        $fb_token= null;
+        $fb_token = null;
         if ($_COOKIE['fb_access_token']) {
             $fb_token = json_decode(stripslashes($_COOKIE['fb_access_token']), true);
         } elseif (get_option('fb_token')) {
             $fb_token = get_option('fb_token');
             $details = array(
-                "token" => $fb_token['token'],
-                "expires_on" => $fb_token['expires_on']
+                'token' => $fb_token['token'],
+                'expires_on' => $fb_token['expires_on']
             );
             UtilityService::storeTokenInCookie($details);
         }
@@ -39,8 +38,7 @@ class UtilityService
         $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token['token']) : null;
 
         if ($fb_token && $fb_token['expires_on']) {
-
-            $expiry = substr($fb_token["expires_on"], 0, 11);
+            $expiry = substr($fb_token['expires_on'], 0, 11);
             $days_left = UtilityService::dateDiffInDays($expiry);
             if ($days_left <= 4) {
                 FacebookService::get_token();
@@ -52,7 +50,7 @@ class UtilityService
     /**
      * Encrypt Facebook token
      *
-     * @param string $value 
+     * @param string $value
      *
      * @return string Encrypted value
      */
@@ -66,7 +64,6 @@ class UtilityService
     /**
      * Store the token in cookie
      * @param string  $token
-     * 
      */
     public static function storeTokenInCookie($token)
     {
@@ -83,4 +80,3 @@ class UtilityService
         setcookie('fb_access_token', '', time() - (60 * 60 * 24 * 30 * 2));
     }
 }
-?>

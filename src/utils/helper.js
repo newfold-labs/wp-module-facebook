@@ -25,7 +25,7 @@ export const getFacebookUserPosts = (userId, accessToken) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data, "posst");
+      console.log(data, "posts");
     })
     .catch((error) => {
       console.error("Error fetching user profile:", error);
