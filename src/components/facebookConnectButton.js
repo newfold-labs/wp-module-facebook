@@ -12,6 +12,8 @@ const FacebookConnectButton = ({
   showData,
   onConnect,
   onDisconnect,
+  onFailure,
+  onClick
 }) => {
   const [fieldValue, setFieldValue] = useState('');
   const [facebookAccess, setFacebookToken] = useState(false);
@@ -28,19 +30,25 @@ const FacebookConnectButton = ({
               setProfileData(response);
               setLoader(false);
               if (typeof onConnect === 'function') {
-                onConnect();
+                onConnect(response);
               }
             }
             setLoader(false);
           })
           .catch((err) => {
             setLoader(false);
+            if (typeof onFailure === 'function') {
+              onFailure(err);
+            }
             console.error(err);
           });
         setFieldValue(res.token);
       })
       .catch((err) => {
         setLoader(false);
+        if (typeof onFailure === 'function') {
+          onFailure(err);
+        }
         console.error(err);
       });
 
@@ -53,7 +61,7 @@ const FacebookConnectButton = ({
           setProfileData(response);
           setLoader(false);
           if (typeof onConnect === 'function') {
-            onConnect();
+            onConnect(response);
           }
         } else {
           if (counter < 2) {
@@ -84,8 +92,7 @@ const FacebookConnectButton = ({
     const win = window.open(
       `${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`,
       'ModalPopUp',
-      `toolbar=no,scrollbars=no,location=no,width=${
-        window.innerWidth / 2 + 200
+      `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth / 2 + 200
       },height=${window.innerHeight / 2 + 200},top=200,left=200`
     );
 
@@ -98,6 +105,11 @@ const FacebookConnectButton = ({
         }, 10000);
       }
     }, 5000);
+
+    if (typeof onClick === 'function') {
+      onClick();
+    }
+
   };
 
   return (
@@ -155,9 +167,9 @@ const FacebookConnectButton = ({
           )}
           onClick={() => connectFacebook()}
         >
-          {loader && <Spinner />}
           {children}
           {__('Connect Facebook', 'wp-module-facebook')}
+          {loader && <Spinner />}
         </Button>
       )}
     </div>
