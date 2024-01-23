@@ -1,16 +1,16 @@
-import apiFetch from "@wordpress/api-fetch";
-import { getFacebookUserProfileDetails, getToken } from "../utils/helper";
-import constants from "../utils/constants";
+import apiFetch from '@wordpress/api-fetch';
+import { getFacebookUserProfileDetails, getToken } from '../utils/helper';
+import constants from '../utils/constants';
 
 export const facebookConnectHelper = async (getFbDetails) => {
-  let fieldValue = "";
+  let fieldValue = '';
   let facebookAccess = null;
   let profileData = [];
 
   const postToken = (fb_token) => {
     apiFetch({
       url: constants.wordpress.settings,
-      method: "post",
+      method: 'post',
       data: {
         fb_token: fb_token,
       },
@@ -19,7 +19,7 @@ export const facebookConnectHelper = async (getFbDetails) => {
         return res;
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -34,12 +34,12 @@ export const facebookConnectHelper = async (getFbDetails) => {
             }
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
         fieldValue = res.token;
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
 
   await hiiveToken();
@@ -53,14 +53,17 @@ export const facebookConnectHelper = async (getFbDetails) => {
     } else {
       const win = window.open(
         `${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`,
-        "ModalPopUp",
+        'ModalPopUp',
         `toolbar=no,scrollbars=no,location=no,width=${
           window.innerWidth / 2 + 200
         },height=${window.innerHeight / 2 + 200},top=200,left=200`
       );
-
+      // win.onunload = async () => {
+      //   await hiiveToken();
+      //   getFbDetails();
+      // };
       const intervalId = setInterval(async function () {
-        if (win.closed) {
+        if (win?.closed) {
           clearInterval(intervalId);
           await hiiveToken();
           getFbDetails();
