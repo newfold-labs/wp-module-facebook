@@ -12,13 +12,18 @@ class FacebookService
     public static function get_hiive_token()
     {
         $hiive_token = HiiveConnection::get_auth_token();
-        return $hiive_token ? $hiive_token : '';
+        $hash_token = get_option('nfd_fb_hash_hiive_token');
+        $encryoted_token = null;
+        if (!$hash_token) {
+            $encryoted_token = $hiive_token ? UtilityService::encrypt_token($hiive_token) : '';
+            update_option('nfd_fb_hash_hiive_token', $encryoted_token);
+        }
+        return $hash_token ? $hash_token : $encryoted_token;
     }
 
     public static function get_token()
     {
-        $hive_token = HiiveConnection::get_auth_token();
-        $hiive_token = $hive_token ? $hive_token : '';
+        $hiive_token = FacebookService::get_hiive_token();
         $url = NFD_FACECBOOK_WORKER . '/get/token?hiive_token=' . $hiive_token;
         $request = wp_remote_get(
             $url,
@@ -47,7 +52,7 @@ class FacebookService
 
     public static function delete_token()
     {
-        $hiive_token = HiiveConnection::get_auth_token() ? HiiveConnection::get_auth_token() : '';
+        $hiive_token = FacebookService::get_hiive_token();
         $url = NFD_FACECBOOK_WORKER . '/delete/token?hiive_token=' . $hiive_token;
         $request = wp_remote_get(
             $url,
