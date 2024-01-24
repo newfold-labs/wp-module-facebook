@@ -13,8 +13,11 @@
     "type": "git",
     "url": "git+https://github.com/newfold-labs/wp-module-facebook.git"
   },
-  "author": "",
-  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "author": "PRESS4",
+  "license": "GPL-2.0-or-later",
   "bugs": {
     "url": "https://github.com/newfold-labs/wp-module-facebook/issues"
   },
