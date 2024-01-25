@@ -24,7 +24,7 @@ class FacebookService
     public static function get_token()
     {
         $hiive_token = FacebookService::get_hiive_token();
-        $url = NFD_FACEBOOK_WORKER . '/get/token?hiive_token=' . $hiive_token;
+        $url = NFD_FACEBOOK_WORKER . 'get/token?hiive_token=' . $hiive_token;
         $request = wp_remote_get(
             $url,
             array(
@@ -53,7 +53,7 @@ class FacebookService
     public static function delete_token()
     {
         $hiive_token = FacebookService::get_hiive_token();
-        $url = NFD_FACEBOOK_WORKER . '/delete/token?hiive_token=' . $hiive_token;
+        $url = NFD_FACEBOOK_WORKER . 'delete/token?hiive_token=' . $hiive_token;
         $request = wp_remote_get(
             $url,
             array(

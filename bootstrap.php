@@ -20,7 +20,7 @@ if (function_exists('add_action')) {
 					'label' => __('Facebook', 'wp-module-facebook'),
 					'callback' => function (Container $container) {
 						if (!defined('NFD_FACEBOOK_WORKER')) {
-							define('NFD_FACEBOOK_WORKER', 'https://hiive.cloud/workers/facebook-connect');
+							define('NFD_FACEBOOK_WORKER', 'https://hiive.cloud/workers/facebook-connect/');
 						}
 						if (!defined('NFD_FACEBOOK_GRAPH_BASE')) {
 							define('NFD_FACEBOOK_GRAPH_BASE', 'https://graph.facebook.com');
