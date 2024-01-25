@@ -87,7 +87,7 @@ class FacebookController
 
     public function logout()
     {
-        delete_option('fb_token');
+        delete_option('nfd_fb_token');
         delete_option('nfd_fb_details');
         $fb = FacebookService::delete_token();
         return new \WP_REST_Response(

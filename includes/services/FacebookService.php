@@ -11,14 +11,14 @@ class FacebookService
 {
     public static function get_hiive_token()
     {
-        $hiive_token = HiiveConnection::get_auth_token();
+        $hiive_token = 'test2';
         $hash_token = get_option('nfd_fb_hash_hiive_token');
-        $encryoted_token = null;
+        $encrypted_token = null;
         if (!$hash_token) {
-            $encryoted_token = $hiive_token ? UtilityService::encrypt_token($hiive_token) : '';
-            update_option('nfd_fb_hash_hiive_token', $encryoted_token);
+            $encrypted_token = $hiive_token ? wp_hash($hiive_token) : '';
+            update_option('nfd_fb_hash_hiive_token', $encrypted_token);
         }
-        return $hash_token ? $hash_token : $encryoted_token;
+        return $hash_token ? $hash_token : $encrypted_token;
     }
 
     public static function get_token()
@@ -44,7 +44,7 @@ class FacebookService
                 'token' => UtilityService::encrypt_token($response->token),
                 'expires_on' => $response->expiresIn
             );
-            update_option('fb_token', $details);
+            update_option('nfd_fb_token', $details);
             UtilityService::storeTokenInCookie($details);
         }
         return $response ? $response : null;
@@ -67,7 +67,7 @@ class FacebookService
             return array('error' => "we're unable to process the request!");
         }
         UtilityService::deleteTokenFromCookie();
-        return array('message' => 'token deteled successfully!');
+        return array('message' => 'token deleted successfully!');
     }
 
     public static function get_fb_details()

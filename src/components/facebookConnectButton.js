@@ -20,6 +20,7 @@ const FacebookConnectButton = ({
   const [profileData, setProfileData] = useState([]);
   const [loader, setLoader] = useState(false);
   let counter = 0;
+
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
       .then((res) => {
@@ -96,15 +97,12 @@ const FacebookConnectButton = ({
       },height=${window.innerHeight / 2 + 200},top=200,left=200`
     );
 
-    const intervalId = setInterval(function () {
-      if (win.closed) {
-        setLoader(true);
-        clearInterval(intervalId);
-        setTimeout(() => {
-          getFbData();
-        }, 10000);
-      }
-    }, 5000);
+    win.onunload = () => {
+      setLoader(true);
+          setTimeout(() => {
+            getFbData();
+          }, 20000);
+      };
 
     if (typeof onClick === 'function') {
       onClick();

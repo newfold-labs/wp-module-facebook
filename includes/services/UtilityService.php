@@ -24,8 +24,8 @@ class UtilityService
         $fb_token = null;
         if ($_COOKIE['fb_access_token']) {
             $fb_token = json_decode(stripslashes($_COOKIE['fb_access_token']), true);
-        } elseif (get_option('fb_token')) {
-            $fb_token = get_option('fb_token');
+        } elseif (get_option('nfd_fb_token')) {
+            $fb_token = get_option('nfd_fb_token');
             $details = array(
                 'token' => $fb_token['token'],
                 'expires_on' => $fb_token['expires_on']
@@ -33,9 +33,9 @@ class UtilityService
             UtilityService::storeTokenInCookie($details);
         }
 
-        $encrpt = new Encryption();
+        $encrypt = new Encryption();
 
-        $decrypt_data = isset($fb_token) ? $encrpt->decrypt($fb_token['token']) : null;
+        $decrypt_data = isset($fb_token) ? $encrypt->decrypt($fb_token['token']) : null;
 
         if ($fb_token && $fb_token['expires_on']) {
             $expiry = substr($fb_token['expires_on'], 0, 11);
@@ -56,8 +56,8 @@ class UtilityService
      */
     public static function encrypt_token($value)
     {
-        $encrpt = new Encryption();
-        $encrypt_data = $value ? $encrpt->encrypt($value) : null;
+        $encrypt = new Encryption();
+        $encrypt_data = $value ? $encrypt->encrypt($value) : null;
         return $encrypt_data;
     }
 
@@ -69,7 +69,7 @@ class UtilityService
     {
         $token = json_encode($token);
         // setting cookie for 2 months
-        setcookie('fb_access_token', $token, time() + (60 * 60 * 24 * 30 * 2));
+        setcookie('fb_access_token', $token, time() + (MONTH_IN_SECONDS * 2));
     }
 
     /**
@@ -77,6 +77,6 @@ class UtilityService
      */
     public static function deleteTokenFromCookie()
     {
-        setcookie('fb_access_token', '', time() - (60 * 60 * 24 * 30 * 2));
+        setcookie('fb_access_token', '', time() - (MONTH_IN_SECONDS * 2));
     }
 }

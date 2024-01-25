@@ -58,17 +58,11 @@ export const facebookConnectHelper = async (getFbDetails) => {
           window.innerWidth / 2 + 200
         },height=${window.innerHeight / 2 + 200},top=200,left=200`
       );
-      // win.onunload = async () => {
-      //   await hiiveToken();
-      //   getFbDetails();
-      // };
-      const intervalId = setInterval(async function () {
-        if (win?.closed) {
-          clearInterval(intervalId);
-          await hiiveToken();
-          getFbDetails();
-        }
-      }, 1000);
+      win.onunload = async () => {
+        await hiiveToken();
+        getFbDetails();
+      };
+
     }
   });
 };

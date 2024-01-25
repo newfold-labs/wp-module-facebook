@@ -25,6 +25,9 @@ if (function_exists('add_action')) {
 						if (!defined('NFD_FACEBOOK_GRAPH_BASE')) {
 							define('NFD_FACEBOOK_GRAPH_BASE', 'https://graph.facebook.com');
 						}
+						if (!defined('MONTH_IN_SECONDS')) {
+							define('MONTH_IN_SECONDS', '60 * 60 * 24 * 30');
+						}
 						new Facebook($container);
 					},
 					'isActive' => true,
