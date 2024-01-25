@@ -11,7 +11,7 @@ class FacebookService
 {
     public static function get_hiive_token()
     {
-        $hiive_token = 'test2';
+        $hiive_token = HiiveConnection::get_auth_token();
         $hash_token = get_option('nfd_fb_hash_hiive_token');
         $encrypted_token = null;
         if (!$hash_token) {
