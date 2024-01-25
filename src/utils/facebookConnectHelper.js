@@ -65,7 +65,6 @@ export const facebookConnectHelper = async (getFbDetails) => {
           getFbDetails();
         }
       }, 1000);
-
     }
   });
 };
