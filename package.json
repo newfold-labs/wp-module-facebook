@@ -1,6 +1,6 @@
 {
   "name": "@newfold-labs/wp-module-facebook",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "## How it works?",
   "main": "build/index.js",
   "scripts": {
