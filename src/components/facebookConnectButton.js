@@ -19,7 +19,6 @@ const FacebookConnectButton = ({
   const [facebookAccess, setFacebookToken] = useState(false);
   const [profileData, setProfileData] = useState([]);
   const [loader, setLoader] = useState(false);
-  let counter = 0;
 
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
@@ -53,7 +52,7 @@ const FacebookConnectButton = ({
         console.error(err);
       });
 
-  const getProfileData = () => {
+  const getProfileData = (counter = 1) => {
     getFacebookUserProfileDetails()
       .then((response) => {
         counter++;
@@ -77,16 +76,13 @@ const FacebookConnectButton = ({
       })
       .catch(() => hiiveToken());
   };
-  const getFbData = () => {
-    getProfileData();
-  };
 
   useEffect(() => {
     !fieldValue &&
       apiFetch({ url: constants.wordpress.access }).then((res) => {
         res.token && setFieldValue(res.token);
       });
-    getFbData();
+    getProfileData(1);
   }, []);
 
   const connectFacebook = () => {
@@ -97,12 +93,15 @@ const FacebookConnectButton = ({
       },height=${window.innerHeight / 2 + 200},top=200,left=200`
     );
 
-    win.onunload = () => {
+    const intervalId = setInterval(() => {
+      if (win?.closed) {
       setLoader(true);
-          setTimeout(() => {
-            getFbData();
-          }, 20000);
-      };
+      clearInterval(intervalId);
+      setTimeout(() => {
+        getProfileData(0);
+      }, 10000);
+    }
+    }, 10000)
 
     if (typeof onClick === 'function') {
       onClick();
