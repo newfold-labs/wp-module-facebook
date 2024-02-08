@@ -99,9 +99,9 @@ const FacebookConnectButton = ({
       clearInterval(intervalId);
       setTimeout(() => {
         getProfileData(0);
-      }, 10000);
+      }, 5000);
     }
-    }, 10000)
+    }, 5000)
 
     if (typeof onClick === 'function') {
       onClick();
