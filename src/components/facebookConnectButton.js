@@ -53,7 +53,6 @@ const FacebookConnectButton = ({
       });
 
   const getProfileData = (counter = 1) => {
-    console.log('getting profile data');
     getFacebookUserProfileDetails()
       .then((response) => {
         counter++;
