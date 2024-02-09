@@ -54,3 +54,11 @@ export const facebookLogout = () => {
       throw { message: 'failed to load the data', errorMsg: error };
     });
 };
+
+export const postFbToken = (token) => {
+  return apiFetch({
+    url: `${constants.wordpress.fb_token}`,
+    data: token,
+    method: "POST"
+  });
+}

@@ -1,7 +1,7 @@
 import { Button, Spinner } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
 import React, { useEffect, useState } from 'react';
-import { getFacebookUserProfileDetails } from '../utils/helper';
+import { getFacebookUserProfileDetails, postFbToken } from '../utils/helper';
 import constants from '../utils/constants';
 import { __ } from '@wordpress/i18n';
 import classNames from 'classnames';
@@ -20,6 +20,19 @@ const FacebookConnectButton = ({
   const [profileData, setProfileData] = useState([]);
   const [loader, setLoader] = useState(false);
 
+  window.addEventListener('message', receiveMessage, false);
+
+  function receiveMessage(event) {
+    // Check origin of the message sender for security
+    // if (event.origin !== 'https://example.com') {
+    //     return;
+    // }
+
+    // Process data received from the popup
+    postFbToken(event.data).then(res => {
+      console.log(res)
+    })
+}
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
       .then((res) => {

@@ -120,11 +120,12 @@ class FacebookController
 
     public function post_fb_token($request)
     {
-        $fb_token = FacebookService::get_token();
+        $body = json_decode($request->get_body());
+        $message = FacebookService::post_token($body);
         return new \WP_REST_Response(
             array(
                 'status' => 'success',
-                'message' => 'updated successfully!'
+                'message' => $message
             ),
             200
         );

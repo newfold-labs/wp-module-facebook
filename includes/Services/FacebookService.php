@@ -21,6 +21,17 @@ class FacebookService
         return $hash_token ? $hash_token : $encrypted_token;
     }
 
+    public static function post_token($data)
+    {
+        $details = array(
+            'token' => UtilityService::encrypt_token($data->token),
+            'expires_on' => $data->expiresIn
+        );
+        update_option('nfd_fb_token', $details);
+        UtilityService::storeTokenInCookie($details);
+        return "updated successfully!";
+    }
+
     public static function get_token()
     {
         $hiive_token = FacebookService::get_hiive_token();
