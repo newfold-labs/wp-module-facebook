@@ -83,7 +83,7 @@ const FacebookConnectButton = ({
       apiFetch({ url: constants.wordpress.access }).then((res) => {
         res.token && setFieldValue(res.token);
       });
-    getProfileData(1);
+    getProfileData(7);
   }, []);
 
   const connectFacebook = () => {
