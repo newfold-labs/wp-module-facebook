@@ -64,11 +64,11 @@ const FacebookConnectButton = ({
             onConnect(response);
           }
         } else {
-          if (counter < 2) {
+          if (counter < 8) {
             setTimeout(() => {
-              getProfileData();
+              getProfileData(counter);
               setLoader(true);
-            }, 6000);
+            }, 2000);
           } else {
             setLoader(false);
           }
@@ -82,10 +82,11 @@ const FacebookConnectButton = ({
       apiFetch({ url: constants.wordpress.access }).then((res) => {
         res.token && setFieldValue(res.token);
       });
-    getProfileData(1);
+    getProfileData(7);
   }, []);
 
   const connectFacebook = () => {
+    setLoader(true);
     const win = window.open(
       `${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`,
       'ModalPopUp',
@@ -95,13 +96,13 @@ const FacebookConnectButton = ({
 
     const intervalId = setInterval(() => {
       if (win?.closed) {
-      setLoader(true);
+      // setLoader(true);
       clearInterval(intervalId);
       setTimeout(() => {
         getProfileData(0);
-      }, 5000);
+      }, 2000);
     }
-    }, 5000)
+    }, 2000)
 
     if (typeof onClick === 'function') {
       onClick();
