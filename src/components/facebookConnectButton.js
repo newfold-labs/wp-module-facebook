@@ -66,7 +66,7 @@ const FacebookConnectButton = ({
         } else {
           if (counter < 8) {
             setTimeout(() => {
-              getProfileData();
+              getProfileData(counter);
               setLoader(true);
             }, 2000);
           } else {
