@@ -22,11 +22,11 @@ const FacebookConnectButton = ({
 
 
   function receiveMessage(event) {
-    setLoader(true);
     // Check origin of the message sender for security
     if (event.origin.search('https://hiive.cloud') < 0) {
         return;
     }
+    setLoader(true);
     window.removeEventListener('message', receiveMessage);
     // Process data received from the popup
     postFbToken(event.data).then(res => {
@@ -43,7 +43,6 @@ const FacebookConnectButton = ({
             if (response !== 'token not found!') {
               setFacebookToken(true);
               setProfileData(response);
-              setLoader(false);
               if (typeof onConnect === 'function') {
                 onConnect(response);
               }
