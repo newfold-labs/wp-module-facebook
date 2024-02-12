@@ -20,7 +20,6 @@ const FacebookConnectButton = ({
   const [profileData, setProfileData] = useState([]);
   const [loader, setLoader] = useState(false);
 
-  window.addEventListener('message', receiveMessage, false);
 
   function receiveMessage(event) {
     setLoader(true);
