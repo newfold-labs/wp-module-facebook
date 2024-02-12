@@ -23,16 +23,20 @@ const FacebookConnectButton = ({
   window.addEventListener('message', receiveMessage, false);
 
   function receiveMessage(event) {
+    setLoader(true);
     // Check origin of the message sender for security
-    // if (event.origin !== 'https://example.com') {
-    //     return;
-    // }
-
+    if (event.origin.search('https://hiive.cloud') < 0) {
+        return;
+    }
+    window.removeEventListener('message', receiveMessage);
     // Process data received from the popup
     postFbToken(event.data).then(res => {
-      console.log(res)
-    })
+      getProfileData();
+    }).catch(() => setLoader(false))
 }
+
+window.addEventListener('message', receiveMessage, false);
+
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
       .then((res) => {
@@ -65,7 +69,7 @@ const FacebookConnectButton = ({
         console.error(err);
       });
 
-  const getProfileData = (counter = 1) => {
+  const getProfileData = () => {
     getFacebookUserProfileDetails()
       .then((response) => {
         counter++;
@@ -75,15 +79,6 @@ const FacebookConnectButton = ({
           setLoader(false);
           if (typeof onConnect === 'function') {
             onConnect(response);
-          }
-        } else {
-          if (counter < 8) {
-            setTimeout(() => {
-              getProfileData(counter);
-              setLoader(true);
-            }, 2000);
-          } else {
-            setLoader(false);
           }
         }
       })
@@ -95,28 +90,16 @@ const FacebookConnectButton = ({
       apiFetch({ url: constants.wordpress.access }).then((res) => {
         res.token && setFieldValue(res.token);
       });
-    getProfileData(7);
+    getProfileData();
   }, []);
 
   const connectFacebook = () => {
-    setLoader(true);
     const win = window.open(
       `${constants.cf_worker.login_screen}?token_hiive=${fieldValue}&redirect=${window.location.href}`,
       'ModalPopUp',
       `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth / 2 + 200
       },height=${window.innerHeight / 2 + 200},top=200,left=200`
     );
-
-    const intervalId = setInterval(() => {
-      if (win?.closed) {
-      // setLoader(true);
-      clearInterval(intervalId);
-      setTimeout(() => {
-        getProfileData(0);
-      }, 2000);
-    }
-    }, 2000)
-
     if (typeof onClick === 'function') {
       onClick();
     }
