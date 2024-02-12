@@ -34,7 +34,6 @@ const FacebookConnectButton = ({
     }).catch(() => setLoader(false))
 }
 
-window.addEventListener('message', receiveMessage, false);
 
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
@@ -71,7 +70,6 @@ window.addEventListener('message', receiveMessage, false);
   const getProfileData = () => {
     getFacebookUserProfileDetails()
       .then((response) => {
-        counter++;
         if (response !== 'token not found!') {
           setFacebookToken(true);
           setProfileData(response);
@@ -99,6 +97,8 @@ window.addEventListener('message', receiveMessage, false);
       `toolbar=no,scrollbars=no,location=no,width=${window.innerWidth / 2 + 200
       },height=${window.innerHeight / 2 + 200},top=200,left=200`
     );
+    window.addEventListener('message', receiveMessage, false);
+
     if (typeof onClick === 'function') {
       onClick();
     }
