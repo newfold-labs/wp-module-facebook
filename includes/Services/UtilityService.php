@@ -89,8 +89,9 @@ class UtilityService
         $existing_attachment = attachment_url_to_postid($image_url);
 
         if(!$existing_attachment){
-            $media_id = media_sideload_image($image_url, 0);
-            set_theme_mod('custom_logo', $media_id);
+            $media_id = media_sideload_image($image_url, 0, null, 'src');
+            $existing_attachment = attachment_url_to_postid($media_id);
+            set_theme_mod('custom_logo', $existing_attachment);
         }
 
     }
