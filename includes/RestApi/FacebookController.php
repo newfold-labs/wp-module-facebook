@@ -51,7 +51,7 @@ class FacebookController
 
         register_rest_route(
             $this->namespace,
-            $this->rest_base . '/get-token',
+            $this->rest_base . '/fb_token',
             array(
                 array(
                     'methods' => \WP_REST_Server::CREATABLE,
@@ -63,7 +63,7 @@ class FacebookController
 
         register_rest_route(
             $this->namespace,
-            $this->rest_base . '/post-token',
+            $this->rest_base . '/fb_token',
             array(
                 array(
                     'methods' => \WP_REST_Server::READABLE,
