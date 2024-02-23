@@ -41,7 +41,7 @@ class FacebookHelperService
 
     public static function get_fb_business($result, $FacebookData, $fb_token)
     {
-        $business_url = NFD_FACEBOOK_GRAPH_BASE . '/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks%2Cpicture&access_token=' . $fb_token . '&format=json';
+        $business_url = NFD_FACEBOOK_GRAPH_BASE . '/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks&access_token=' . $fb_token . '&format=json';
         $business_results = wp_remote_get(
             $business_url,
             array(

@@ -3,11 +3,6 @@ namespace NewfoldLabs\WP\Module\Facebook\Services;
 
 use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
-
-require_once(ABSPATH . 'wp-admin/includes/image.php');
-require_once(ABSPATH . 'wp-admin/includes/file.php');
-require_once(ABSPATH . 'wp-admin/includes/media.php');
-
 class UtilityService
 {
     public static function dateDiffInDays($date)
