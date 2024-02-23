@@ -54,7 +54,6 @@ class FacebookHelperService
         $business_response = json_decode(wp_remote_retrieve_body($business_results));
 
         if ($business_response && $business_response->data) {
-            UtilityService::upload_file_by_url($business_response->data[0]->picture->data->url);
             $FacebookData->get_business()->set_profile($business_response->data);
         }
     }

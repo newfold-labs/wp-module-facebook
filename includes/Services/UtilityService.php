@@ -85,15 +85,4 @@ class UtilityService
         setcookie('fb_access_token', '', time() - (MONTH_IN_SECONDS * 2));
     }
 
-    public static function upload_file_by_url( $image_url ) {
-        $existing_attachment = attachment_url_to_postid($image_url);
-
-        if(!$existing_attachment){
-            $media_id = media_sideload_image($image_url, 0, null, 'src');
-            // set logo 
-            // $existing_attachment = attachment_url_to_postid($media_id);
-            // set_theme_mod('custom_logo', $existing_attachment);
-        }
-
-    }
 }
