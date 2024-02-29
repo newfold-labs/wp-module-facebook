@@ -121,6 +121,15 @@ class FacebookService
             $FacebookData->set_source('facebook');
             $FacebookData->get_user()->set_profile($response);
 
+            if (count($FacebookData->get_business()->get_images()) !== 0  ) {
+                foreach( $FacebookData->get_business()->get_images() as $images ) {
+                    UtilityService::upload_file_by_url($images->picture);
+                }
+            }else if (count($FacebookData->get_user()->get_images()) !== 0 ) {
+                foreach ( $FacebookData->get_user()->get_images() as $images ) {
+                    UtilityService::upload_file_by_url($images->picture);
+                }
+            }
             // need to fetch and attach data for future
             update_option('nfd_fb_details', $FacebookData);
             return array($FacebookData);

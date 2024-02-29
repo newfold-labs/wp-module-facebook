@@ -54,7 +54,6 @@ class FacebookHelperService
         $business_response = json_decode(wp_remote_retrieve_body($business_results));
 
         if ($business_response && $business_response->data) {
-            UtilityService::upload_file_by_url($business_response->data[0]->picture->data->url);
             $FacebookData->get_business()->set_profile($business_response->data);
         }
     }
@@ -94,7 +93,7 @@ class FacebookHelperService
 
     public static function get_fb_business_images($result, $FacebookData, $fb_token)
     {
-        $business_images = NFD_FACEBOOK_GRAPH_BASE . '/' . $FacebookData->get_business()->get_profile()[0]->id . '/photos?fields=created_time,alt_text,picture,id&limit=10&access_token=' . $fb_token . '&format=json';
+        $business_images = NFD_FACEBOOK_GRAPH_BASE . '/' . $FacebookData->get_business()->get_profile()[0]->id . '/photos/uploaded?fields=created_time,alt_text,picture,id&limit=10&access_token=' . $fb_token . '&format=json';
         $business_images_response = wp_remote_get(
             $business_images,
             array(
