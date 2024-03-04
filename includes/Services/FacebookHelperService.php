@@ -3,6 +3,15 @@ namespace NewfoldLabs\WP\Module\Facebook\Services;
 
 class FacebookHelperService
 {
+    /**
+     * Gets posts from facebook
+     * 
+     * @param object $result       facebook profile
+     * @param object $FacebookData Model
+     * @param string $fb_token     access token
+     * 
+     * @return void
+     */
     public static function get_fb_posts($result, $FacebookData, $fb_token)
     {
         $post_url = NFD_FACEBOOK_GRAPH_BASE . '/' . $result->id . '/posts?fields=id,name,message,story,created_time,link,description,caption,attachments{media,type,subattachments}&limit=10&access_token=' . $fb_token . '&format=json';
@@ -21,6 +30,15 @@ class FacebookHelperService
         }
     }
 
+    /**
+     * Gets images from facebook
+     * 
+     * @param object $result       facebook profile
+     * @param object $FacebookData Model
+     * @param string $fb_token     access token
+     * 
+     * @return void
+     */
     public static function get_fb_images($result, $FacebookData, $fb_token)
     {
         $image_url = NFD_FACEBOOK_GRAPH_BASE . '/me/photos/uploaded?fields=link,picture,alt_text,created_time,id&limit=10&access_token=' . $fb_token . '&format=json';
@@ -39,6 +57,15 @@ class FacebookHelperService
         }
     }
 
+    /**
+     * Gets business details from facebook
+     * 
+     * @param object $result       facebook profile
+     * @param object $FacebookData Model
+     * @param string $fb_token     access token
+     * 
+     * @return void
+     */
     public static function get_fb_business($result, $FacebookData, $fb_token)
     {
         $business_url = NFD_FACEBOOK_GRAPH_BASE . '/me/accounts?fields=category%2Ccategory_list%2Cname%2Cid%2Ctasks%2Cpicture&access_token=' . $fb_token . '&format=json';
@@ -58,6 +85,15 @@ class FacebookHelperService
         }
     }
 
+     /**
+      * Gets business posts from facebook
+      * 
+      * @param object $result       facebook profile
+      * @param object $FacebookData Model
+      * @param string $fb_token     access token
+      * 
+      * @return void
+      */
     public static function get_fb_business_posts($result, $FacebookData, $fb_token)
     {
         $business_post_token = NFD_FACEBOOK_GRAPH_BASE . '/' . $FacebookData->get_business()->get_profile()[0]->id . '?fields=access_token&access_token=' . $fb_token . '&format=json';
@@ -91,6 +127,15 @@ class FacebookHelperService
         }
     }
 
+    /**
+     * Gets business images from facebook
+     * 
+     * @param object $result       facebook profile
+     * @param object $FacebookData Model
+     * @param string $fb_token     access token
+     * 
+     * @return void
+     */
     public static function get_fb_business_images($result, $FacebookData, $fb_token)
     {
         $business_images = NFD_FACEBOOK_GRAPH_BASE . '/' . $FacebookData->get_business()->get_profile()[0]->id . '/photos/uploaded?fields=created_time,alt_text,picture,id&limit=10&access_token=' . $fb_token . '&format=json';

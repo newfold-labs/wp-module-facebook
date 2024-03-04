@@ -9,6 +9,11 @@ use NewfoldLabs\WP\Module\Facebook\Services\UtilityService;
 
 class FacebookService
 {
+    /**
+     * Hiive token
+     * 
+     * @return string encrypted token
+     */
     public static function get_hiive_token()
     {
         $hiive_token = HiiveConnection::get_auth_token();
@@ -125,7 +130,7 @@ class FacebookService
                 foreach( $FacebookData->get_business()->get_images() as $images ) {
                     UtilityService::upload_file_by_url($images->picture);
                 }
-            }else if (count($FacebookData->get_user()->get_images()) !== 0 ) {
+            } else if (count($FacebookData->get_user()->get_images()) !== 0 ) {
                 foreach ( $FacebookData->get_user()->get_images() as $images ) {
                     UtilityService::upload_file_by_url($images->picture);
                 }
