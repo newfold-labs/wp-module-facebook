@@ -5,9 +5,9 @@ class Details
 {
   public $profile = [];
 
-  public $posts;
+  public $posts = [];
 
-  public $images;
+  public $images = [];
 
   function set_profile($profile)
   {

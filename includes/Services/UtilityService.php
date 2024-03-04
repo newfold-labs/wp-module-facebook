@@ -3,8 +3,20 @@ namespace NewfoldLabs\WP\Module\Facebook\Services;
 
 use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 
+
+require_once(ABSPATH . 'wp-admin/includes/image.php');
+require_once(ABSPATH . 'wp-admin/includes/file.php');
+require_once(ABSPATH . 'wp-admin/includes/media.php');
+
 class UtilityService
 {
+    /**
+     * Difference in dates
+     * 
+     * @param date $date date
+     * 
+     * @return number days
+     */
     public static function dateDiffInDays($date)
     {
         $expiryDate = date_create($date);
@@ -15,7 +27,6 @@ class UtilityService
 
     /**
      * Decrypt Facebook token
-     *
      *
      * @return string Decrypted value
      */
@@ -50,7 +61,7 @@ class UtilityService
     /**
      * Encrypt Facebook token
      *
-     * @param string $value
+     * @param string $value access token
      *
      * @return string Encrypted value
      */
@@ -63,7 +74,10 @@ class UtilityService
 
     /**
      * Store the token in cookie
-     * @param string  $token
+     * 
+     * @param string $token encrypted token
+     * 
+     * @return void
      */
     public static function storeTokenInCookie($token)
     {
@@ -74,9 +88,28 @@ class UtilityService
 
     /**
      * Delete the token in cookie
+     * 
+     * @return void
      */
     public static function deleteTokenFromCookie()
     {
         setcookie('fb_access_token', '', time() - (MONTH_IN_SECONDS * 2));
+    }
+
+    /**
+     * Upload Media to library
+     * 
+     * @param string $image_url url of image
+     * 
+     * @return void
+     */
+    public static function upload_file_by_url( $image_url )
+    {
+        $existing_attachment = attachment_url_to_postid($image_url);
+
+        if(!$existing_attachment){
+            media_sideload_image($image_url, 0, null, 'src');
+        }
+
     }
 }
