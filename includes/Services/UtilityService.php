@@ -22,7 +22,7 @@ class UtilityService
     public static function decrypt_token()
     {
         $fb_token = null;
-        if ($_COOKIE['fb_access_token']) {
+        if (isset($_COOKIE['fb_access_token'])) {
             $fb_token = json_decode(stripslashes($_COOKIE['fb_access_token']), true);
         } elseif (get_option('nfd_fb_token')) {
             $fb_token = get_option('nfd_fb_token');
