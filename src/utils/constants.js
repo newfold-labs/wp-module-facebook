@@ -9,7 +9,10 @@ export default {
   wordpress: {
     access: NewfoldRuntime.createApiUrl('/newfold-facebook/v1/facebook/hiive'),
     fb_token: NewfoldRuntime.createApiUrl(
-      '/newfold-facebook/v1/facebook/fb_token'
+      '/newfold-facebook/v1/facebook/get-token'
+    ),
+    post_token: NewfoldRuntime.createApiUrl(
+      '/newfold-facebook/v1/facebook/post-token'
     ),
     facebook_details: NewfoldRuntime.createApiUrl(
       '/newfold-facebook/v1/facebook/details'

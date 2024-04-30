@@ -1,7 +1,6 @@
 <?php
 namespace NewfoldLabs\WP\Module\Facebook;
 
-use NewfoldLabs\WP\Module\Data\Helpers\Encryption;
 use NewfoldLabs\WP\ModuleLoader\Container;
 
 /**

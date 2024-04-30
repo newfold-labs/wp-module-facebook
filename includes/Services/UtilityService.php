@@ -79,4 +79,5 @@ class UtilityService
     {
         setcookie('fb_access_token', '', time() - (MONTH_IN_SECONDS * 2));
     }
+
 }
