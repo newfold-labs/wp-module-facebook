@@ -91,7 +91,7 @@ class FacebookService
         $fb_token = UtilityService::decrypt_token();
         if (!($fb_token)) {
             $fb_token = FacebookService::get_token();
-            $fb_token = $fb_token->token;
+            $fb_token = $fb_token && $fb_token->token;
         }
         if (isset($fb_token) && $fb_token) {
             $url = NFD_FACEBOOK_GRAPH_BASE . '/me?fields=id,name,email,picture&access_token=' . $fb_token;
