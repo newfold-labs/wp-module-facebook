@@ -113,7 +113,7 @@ class FacebookController
             return new \WP_REST_Response(
                 array(
                     'status' => 'error',
-                    'details' => 'Token not found'
+                    'details' => 'You are not authorized'
                 ),
                 401
             );
