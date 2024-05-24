@@ -109,7 +109,7 @@ class FacebookController
                 array('status' => 400)
             );
         }
-        if (preg_match('/^token not found!$/', $fb_details)) {
+        if ( is_string( $fb_details ) && preg_match( '/^token not found!$/', $fb_details ) ) {
             return new \WP_REST_Response(
                 array(
                     'status' => 'error',
