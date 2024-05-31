@@ -109,13 +109,24 @@ class FacebookController
                 array('status' => 400)
             );
         }
-        return new \WP_REST_Response(
-            array(
-                'status' => 'success',
-                'details' => $fb_details
-            ),
-            200
-        );
+        if ( is_string( $fb_details ) && preg_match( '/^token not found!$/', $fb_details ) ) {
+            return new \WP_REST_Response(
+                array(
+                    'status' => 'error',
+                    'details' => 'You are not authorized'
+                ),
+                401
+            );
+        }
+        else {
+            return new \WP_REST_Response(
+                array(
+                    'status' => 'success',
+                    'details' => $fb_details
+                ),
+                200
+            );
+        }
     }
 
     public function post_fb_token($request)
