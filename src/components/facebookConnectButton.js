@@ -123,17 +123,17 @@ const FacebookConnectButton = ({
                   <>
                     <ul style={{ paddingTop: '20px' }}>
                       <li>
-                        <p>Facebook ID: {dataObj?.User?.profile?.id}</p>
+                        <p>{__("Facebook ID",'wp-module-facebook')}: {dataObj?.User?.profile?.id}</p>
                       </li>
                       <li>
-                        <p>User Name: {dataObj?.User?.profile?.name}</p>
+                        <p>{__("User Name",'wp-module-facebook')}: {dataObj?.User?.profile?.name}</p>
                       </li>
                       <li>
-                        <p>User Email: {dataObj?.User?.profile?.email}</p>
+                        <p>{__("User Email",'wp-module-facebook')}: {dataObj?.User?.profile?.email}</p>
                       </li>
                       <li>
                         <p>
-                          Profile pic:
+                          {__("Profile pic",'wp-module-facebook')}:
                           {dataObj?.User?.profile?.picture?.data?.url}
                         </p>
                       </li>
