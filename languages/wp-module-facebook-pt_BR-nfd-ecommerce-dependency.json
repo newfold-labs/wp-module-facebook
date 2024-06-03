@@ -10,23 +10,26 @@
                 "lang": "pt_BR",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "Connected to Facebook": [
+                "Conectado ao Facebook"
+            ],
             "Connected": [
                 "Conectado"
+            ],
+            "Disconnect":[
+                "Desligar"
             ],
             "Facebook ID": [
                 "Facebook ID"
             ],
             "User Name": [
-                "Nome de Usu\u00e1rio"
+                "Nome de usuário"
             ],
             "User Email": [
-                "E-mail do usu\u00e1rio"
+                "E-mail do usuário"
             ],
             "Profile pic": [
                 "Foto do perfil"
-            ],
-            "Connect Facebook": [
-                "Conecte-se ao Facebook"
             ]
         }
     }
