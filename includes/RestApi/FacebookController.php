@@ -110,13 +110,13 @@ class FacebookController
             );
         }
         if ( is_string( $fb_details ) && preg_match( '/^token not found!$/', $fb_details ) ) {
-            return new \WP_REST_Response(
-                array(
-                    'status' => 'error',
-                    'details' => 'You are not authorized'
-                ),
-                401
-            );
+			return new \WP_Error(
+				'nfd_module_facebook_error',
+				__( 'Token not found.', 'wp-module-facebook' ),
+				array(
+					'status' => 404,
+				),
+			);
         }
         else {
             return new \WP_REST_Response(

@@ -41,7 +41,7 @@ export const getFacebookUserProfileDetails = () => {
       return res?.details;
     })
     .catch((error) => {
-      throw { message: 'failed to load the data', errorMsg: error };
+      throw error;
     });
 };
 
