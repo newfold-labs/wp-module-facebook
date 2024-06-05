@@ -112,7 +112,7 @@ class FacebookController
         if ( is_string( $fb_details ) && preg_match( '/^token not found!$/', $fb_details ) ) {
 			return new \WP_Error(
 				'nfd_module_facebook_error',
-				__( 'Token not found.', 'wp-module-facebook' ),
+				__( 'Details not found.', 'wp-module-facebook' ),
 				array(
 					'status' => 404,
 				),
