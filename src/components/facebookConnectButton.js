@@ -54,7 +54,6 @@ const FacebookConnectButton = ({
             if (typeof onFailure === 'function') {
               onFailure(err);
             }
-            console.error(err);
           });
         setFieldValue(res.token);
       })
@@ -63,7 +62,6 @@ const FacebookConnectButton = ({
         if (typeof onFailure === 'function') {
           onFailure(err);
         }
-        console.error(err);
       });
 
   const getProfileData = () => {
