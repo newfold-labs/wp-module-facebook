@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/newfold-labs/wp-module-facebook#readme",
   "dependencies": {
-    "@wordpress/api-fetch": "^6.42.0",
+    "@wordpress/api-fetch": "^7.15.1",
     "react": "^18.2.0",
     "react-helmet": "^6.1.0",
     "@newfold/wp-module-runtime": "^1.1.0",
     "classnames": "^2.3.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "30.8.0"
+    "@wordpress/scripts": "30.8.1"
   }
 }
