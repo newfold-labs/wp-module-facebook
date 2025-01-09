@@ -31,7 +31,7 @@
     "@wordpress/api-fetch": "^7.15.1",
     "react": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "@newfold-labs/wp-module-runtime": "^1.0.0",
+    "@newfold/wp-module-runtime": "^1.1.0",
     "classnames": "^2.3.1"
   },
   "devDependencies": {
