@@ -1,4 +1,4 @@
-import { NewfoldRuntime } from '@newfold-labs/wp-module-runtime';
+import { NewfoldRuntime } from '@newfold/wp-module-runtime';
 
 export default {
   facebook_module: {
