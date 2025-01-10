@@ -32,7 +32,4 @@ if ( fs.existsSync( packagefile ) && fs.existsSync( pluginfile ) ) {
 	} );
 
 	console.log( 'Version updated', currentVersion, '=>', newVersion );
-} else {
-  console.log( process.cwd() );
-  console.log( 'package or plugin file not found.' );
 }
