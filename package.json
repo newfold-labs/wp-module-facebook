@@ -34,7 +34,6 @@
     "semver": "^7.6.3"
   },
   "devDependencies": {
-    "@wordpress/scripts": "30.8.1",
-    "ajv": "^7.2.4"
+    "@wordpress/scripts": "^27"
   }
 }
