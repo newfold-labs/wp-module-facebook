@@ -1,6 +1,10 @@
 {
     "name": "newfold-labs/wp-module-facebook",
+    "description": "Module connects to Customers Facebook profile and fetches data",
     "type": "library",
+    "license": [
+      "GPL-2.0-or-later"
+    ],
     "autoload": {
         "psr-4": {
             "NewfoldLabs\\WP\\Module\\Facebook\\": "includes/"
