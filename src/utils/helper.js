@@ -3,7 +3,7 @@ import constants from './constants';
 
 export const getToken = () => {
   return apiFetch({
-    url: `${constants.wordpress.fb_token}`,
+    url: `${constants.wordpress.post_token}`,
     headers: {
       method: 'GET',
       'content-type': 'application/json',

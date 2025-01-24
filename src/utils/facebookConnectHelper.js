@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { getFacebookUserProfileDetails, getToken } from '../utils/helper';
+import { getFacebookUserProfileDetails, getToken, postFbToken } from '../utils/helper';
 import constants from '../utils/constants';
 
 export const facebookConnectHelper = async (getFbDetails) => {
@@ -23,6 +23,18 @@ export const facebookConnectHelper = async (getFbDetails) => {
       });
   };
 
+  function receiveMessage(event) {
+    // Check origin of the message sender for security
+    if (event.origin.search(constants.cf_worker.base_url) < 0) {
+        return;
+    }
+    window.removeEventListener('message', receiveMessage);
+    // Process data received from the popup
+    postFbToken(event.data).then(() => {
+      getFbDetails()
+    })
+}
+
   const hiiveToken = () =>
     apiFetch({ url: constants.wordpress.access })
       .then((res) => {
@@ -43,7 +55,7 @@ export const facebookConnectHelper = async (getFbDetails) => {
       });
 
   await hiiveToken();
-  await apiFetch({ url: constants.wordpress.fb_token }).then(async (res) => {
+  await apiFetch({ url: constants.wordpress.fb_token, data: fieldValue, method: 'post' }).then(async (res) => {
     if (res?.fb_token) {
       await getFacebookUserProfileDetails().then((response) => {
         facebookAccess = res.fb_token;
@@ -58,13 +70,7 @@ export const facebookConnectHelper = async (getFbDetails) => {
           window.innerWidth / 2 + 200
         },height=${window.innerHeight / 2 + 200},top=200,left=200`
       );
-      const intervalId = setInterval(async function () {
-        if (win?.closed) {
-          clearInterval(intervalId);
-          await hiiveToken();
-          getFbDetails();
-        }
-      }, 1000);
+      window.addEventListener('message', receiveMessage, false);
     }
   });
 };
