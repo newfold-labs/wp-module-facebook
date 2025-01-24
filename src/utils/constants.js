@@ -22,6 +22,7 @@ export default {
     ),
   },
   cf_worker: {
+    base_url: 'https://hiive.cloud',
     login_screen: 'https://hiive.cloud/workers/facebook-connect/',
     get_token:
     'https://hiive.cloud/workers/facebook-connect/get/token?hiive_token=',
