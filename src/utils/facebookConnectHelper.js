@@ -25,7 +25,7 @@ export const facebookConnectHelper = async (getFbDetails) => {
 
   function receiveMessage(event) {
     // Check origin of the message sender for security
-    if (event.origin.search('https://hiive.cloud') < 0) {
+    if (event.origin.search(constants.cf_worker.base_url) < 0) {
         return;
     }
     window.removeEventListener('message', receiveMessage);
