@@ -30,6 +30,7 @@ class Facebook
   {
     $this->container = $container;
     add_action('rest_api_init', array($this, 'register_routes'));
+		\add_action( 'init', array( __CLASS__, 'load_text_domain' ), 100 );
   }
 
   public function register_routes()
@@ -39,4 +40,18 @@ class Facebook
       $rest_api->register_routes();
     }
   }
+
+	/**
+	 * Load text domain for Module
+	 *
+	 * @return void
+	 */
+	public static function load_text_domain() {
+
+		\load_plugin_textdomain(
+			'wp-module-facebook',
+			false,
+			NFD_FACEBOOK_DIR . '/languages'
+		);
+	}
 }

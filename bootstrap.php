@@ -31,6 +31,9 @@ if (function_exists('add_action')) {
 						if ( ! defined( 'NFD_FACEBOOK_VERSION' ) ) {
 							define( 'NFD_FACEBOOK_VERSION', '1.1.2' );
 						}
+						if ( ! defined( 'NFD_FACEBOOK_DIR' ) ) {
+							define( 'NFD_FACEBOOK_DIR', __DIR__ );
+						}						
 						new Facebook($container);
 					},
 					'isActive' => true,
