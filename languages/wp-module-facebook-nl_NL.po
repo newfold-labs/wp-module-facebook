@@ -1,31 +1,39 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: newfold-labswp-module-staging\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Vara Prasad Maruboina <varaprasad.maruboina@newfold.com>\n"
-"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Last-Translator: \n"
+"Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-13T10:03:26+00:00\n"
-"PO-Revision-Date: 2025-02-13 18:47+0530\n"
+"PO-Revision-Date: 2025-02-19 16:31\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wp-module-facebook\n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: newfold-labswp-module-staging\n"
+"X-Crowdin-Project-ID: 764889\n"
+"X-Crowdin-Language: nl\n"
+"X-Crowdin-File: wp-module-facebook.pot\n"
+"X-Crowdin-File-ID: 48\n"
+"Language: nl_NL\n"
 
 #: bootstrap.php:20
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #: includes/RestApi/FacebookController.php:115
 msgid "Details not found."
-msgstr ""
+msgstr "Details niet gevonden."
 
-#: build/index.js:1 src/components/facebookConnectButton.js:115
+#: build/index.js:1
+#: src/components/facebookConnectButton.js:115
 msgid "Connected"
-msgstr ""
+msgstr "Verbonden"
 
-#: build/index.js:1 src/components/facebookConnectButton.js:161
+#: build/index.js:1
+#: src/components/facebookConnectButton.js:161
 msgid "Connect Facebook"
-msgstr ""
+msgstr "Verbind Facebook"
+
