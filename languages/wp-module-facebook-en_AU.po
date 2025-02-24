@@ -9,9 +9,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-13T10:03:26+00:00\n"
 "PO-Revision-Date: 2025-02-13 18:47+0530\n"
+"Language: en_AU\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wp-module-facebook\n"
-"Language: en_AU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bootstrap.php:20
@@ -22,10 +22,10 @@ msgstr "Facebook"
 msgid "Details not found."
 msgstr "Details not found."
 
-#: build/index.js:1 src/components/facebookConnectButton.js:115
+#: build/index.js:1
 msgid "Connected"
 msgstr "Connected"
 
-#: build/index.js:1 src/components/facebookConnectButton.js:161
+#: build/index.js:1
 msgid "Connect Facebook"
 msgstr "Connect Facebook"

@@ -9,6 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-13T10:03:26+00:00\n"
 "PO-Revision-Date: 2025-02-19 16:31\n"
+"Language: nl_NL\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wp-module-facebook\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -17,7 +18,6 @@ msgstr ""
 "X-Crowdin-Language: nl\n"
 "X-Crowdin-File: wp-module-facebook.pot\n"
 "X-Crowdin-File-ID: 48\n"
-"Language: nl_NL\n"
 
 #: bootstrap.php:20
 msgid "Facebook"
@@ -28,12 +28,9 @@ msgid "Details not found."
 msgstr "Details niet gevonden."
 
 #: build/index.js:1
-#: src/components/facebookConnectButton.js:115
 msgid "Connected"
 msgstr "Verbonden"
 
 #: build/index.js:1
-#: src/components/facebookConnectButton.js:161
 msgid "Connect Facebook"
 msgstr "Verbind Facebook"
-
