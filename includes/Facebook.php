@@ -8,48 +8,50 @@ use NewfoldLabs\WP\ModuleLoader\Container;
  *
  * @package NewfoldLabs\WP\Module\Facebook
  */
-class Facebook
-{
-  /*
-   * Container loaded from the brand plugin.
-   *
-   * @var Container
-   */
-  protected $container;
+class Facebook {
 
-  /**
+	/*
+	* Container loaded from the brand plugin.
+	*
+	* @var Container
+	*/
+	protected $container;
+
+	/**
 	 * Identifier for script handle.
 	 *
 	 * @var string
 	 */
 	public static $handle = 'nfd-facebook';
 
-  /**
-   * Array map of API controllers.
-   *
-   * @var array
-   */
-  protected $controllers = array(
-    'NewfoldLabs\\WP\\Module\\Facebook\\RestApi\\FacebookController',
-  );
+	/**
+	 * Array map of API controllers.
+	 *
+	 * @var array
+	 */
+	protected $controllers = array(
+		'NewfoldLabs\\WP\\Module\\Facebook\\RestApi\\FacebookController',
+	);
 
-  public function __construct(Container $container)
-  {
-    $this->container = $container;
-    add_action('rest_api_init', array($this, 'register_routes'));
+	public function __construct( Container $container ) {
+		$this->container = $container;
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 		\add_action( 'init', array( __CLASS__, 'load_text_domain' ), 100 );
-    add_filter( 'load_script_translation_file',
-		array( $this, 'load_script_translation_file' ), 10, 3 );
-    add_action( 'load-toplevel_page_' . $container->plugin()->id, array( $this, 'register_assets' ) );
-  }
+		add_filter(
+			'load_script_translation_file',
+			array( $this, 'load_script_translation_file' ),
+			10,
+			3
+		);
+		add_action( 'load-toplevel_page_' . $container->plugin()->id, array( $this, 'register_assets' ) );
+	}
 
-  public function register_routes()
-  {
-    foreach ($this->controllers as $controller) {
-      $rest_api = new $controller();
-      $rest_api->register_routes();
-    }
-  }
+	public function register_routes() {
+		foreach ( $this->controllers as $controller ) {
+			$rest_api = new $controller();
+			$rest_api->register_routes();
+		}
+	}
 
 	/**
 	 * Load text domain for Module
@@ -64,13 +66,13 @@ class Facebook
 			NFD_FACEBOOK_DIR . '/languages'
 		);
 	}
-  
-  /**
+
+	/**
 	 * Load WP dependencies into the page.
 	 */
 	public function register_assets() {
 		$asset_file = NFD_FACEBOOK_DIR . '/build/index.asset.php';
-    $dir = $this->container->plugin()->url . 'vendor/newfold-labs/wp-module-facebook/';
+		$dir        = $this->container->plugin()->url . 'vendor/newfold-labs/wp-module-facebook/';
 		if ( file_exists( $asset_file ) ) {
 			$asset = require $asset_file;
 			\wp_register_script(
@@ -80,15 +82,15 @@ class Facebook
 				$asset['version']
 			);
 		}
-    \wp_set_script_translations(
-      self::$handle,
-      "wp-module-facebook",
-      NFD_FACEBOOK_DIR . '/languages'
-    );
-    \wp_enqueue_script( self::$handle );
+		\wp_set_script_translations(
+			self::$handle,
+			'wp-module-facebook',
+			NFD_FACEBOOK_DIR . '/languages'
+		);
+		\wp_enqueue_script( self::$handle );
 	}
 
-  /**
+	/**
 	 * Filters the file path for the JS translation JSON.
 	 *
 	 * If the script handle matches the module's handle, builds a custom path using
@@ -108,7 +110,7 @@ class Facebook
 				? $locale
 				: $domain . '-' . $locale;
 			$file      = $path . $file_base . '-' . md5( 'build/index.js' )
-			             . '.json';
+						. '.json';
 
 		}
 
