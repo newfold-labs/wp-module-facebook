@@ -16,6 +16,7 @@
   },
   "files": [
     "build/",
+    "languages/",
     "*.d.ts",
     "*.css"
   ],
