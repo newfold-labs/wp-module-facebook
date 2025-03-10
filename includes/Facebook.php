@@ -77,8 +77,10 @@ class Facebook {
 			$asset = require $asset_file;
 			\wp_register_script(
 				self::$handle,
-				$dir . 'build/index.js',
-				array_merge( $asset['dependencies'], array() ),
+				// using dummy i18n-handle.js instead of index.js
+				// due to the build file being pulled in as a npmjs pacakge.
+				$dir . 'assets/i18n-handle.js', 
+				array(),
 				$asset['version']
 			);
 		}
