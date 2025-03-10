@@ -9,12 +9,11 @@ use NewfoldLabs\WP\ModuleLoader\Container;
  * @package NewfoldLabs\WP\Module\Facebook
  */
 class Facebook {
-
-	/*
-	* Container loaded from the brand plugin.
-	*
-	* @var Container
-	*/
+	/**
+	 * Container loaded from the brand plugin.
+	 *
+	 * @var Container
+	 */
 	protected $container;
 
 	/**
@@ -33,6 +32,11 @@ class Facebook {
 		'NewfoldLabs\\WP\\Module\\Facebook\\RestApi\\FacebookController',
 	);
 
+	/**
+	 * Facebook constructor.
+	 *
+	 * @param Container $container Container loaded from the brand plugin.
+	 */
 	public function __construct( Container $container ) {
 		$this->container = $container;
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
@@ -46,6 +50,11 @@ class Facebook {
 		add_action( 'load-toplevel_page_' . $container->plugin()->id, array( $this, 'register_assets' ) );
 	}
 
+	/**
+	 * Register routes for the module.
+	 *
+	 * @return void
+	 */
 	public function register_routes() {
 		foreach ( $this->controllers as $controller ) {
 			$rest_api = new $controller();
@@ -77,8 +86,10 @@ class Facebook {
 			$asset = require $asset_file;
 			\wp_register_script(
 				self::$handle,
-				$dir . 'build/index.js',
-				array_merge( $asset['dependencies'], array() ),
+				// using dummy i18n-handle.js instead of index.js
+				// due to the build file being pulled in as a npmjs pacakge.
+				$dir . 'assets/i18n-handle.js',
+				array(),
 				$asset['version']
 			);
 		}
