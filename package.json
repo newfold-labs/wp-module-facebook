@@ -35,6 +35,6 @@
     "semver": "^7.6.3"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^27"
+    "@wordpress/scripts": "^30"
   }
 }
