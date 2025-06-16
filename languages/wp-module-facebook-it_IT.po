@@ -34,3 +34,8 @@ msgstr "Connesso"
 #: build/index.js:1
 msgid "Connect Facebook"
 msgstr "Connetti Facebook"
+
+#: wordpress/wp-includes/blocks/widget-group/block.json
+msgctxt "block title"
+msgid "Widget Group"
+msgstr ""
