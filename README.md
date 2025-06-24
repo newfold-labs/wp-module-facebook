@@ -12,6 +12,22 @@
 
 ## Releases
 
-In order to issue a release of this module we must update the version number. Preferrably, use the `set-version-bump.js` script by running `npm run set-version-bump`. If it is more than a patch release, run the script directly via `node run ./set-version-bump.js minor`. Alternatively, update the version strings in the folling files:
+Run the `Newfold Prepare Release` github action to automatically bump the version (either patch, minor or major version), and update build and language files all at once. It will create a PR with changed files for review. Using this workflow, we can skip all the manual steps below (1-5).
+
+### Manual Release 
+
+1. Update the version number in the folling files:
 - package.json
 - bootstrap.php
+
+2. Update build files.
+
+3. Update language files.
+
+4. Push changes to a release branch.
+
+5. Create a release PR for review.
+
+6. Finally, merge release PR (after approved) and issue a release via github release.
+
+7. Workflows will publish the release in the appropriate places.
