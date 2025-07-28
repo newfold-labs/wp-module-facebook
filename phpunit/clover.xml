@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750083710">
-  <project timestamp="1750083710">
+<coverage generated="1753725950">
+  <project timestamp="1753725950">
     <file name="/home/runner/work/wp-module-facebook/wp-module-facebook/includes/Accessors/Business.php">
       <class name="NewfoldLabs\WP\Module\Facebook\Accessors\Business" namespace="global">
         <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
