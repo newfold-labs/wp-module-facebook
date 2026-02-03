@@ -1,4 +1,3 @@
-
 # Composer
 # Cypress
 # File Types
@@ -9,6 +8,7 @@
 *.zip
 .DS_Store
 .idea
+.env.testing
 /node_modules
 /tests/_output
 /tests/_support/_generated
