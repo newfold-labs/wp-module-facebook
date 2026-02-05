@@ -2,12 +2,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-13T10:03:26+00:00\n"
-"PO-Revision-Date: 2025-02-13 18:47+0530\n"
-"Last-Translator: Vara Prasad Maruboina <varaprasad.maruboina@newfold.com>\n"
-"Language-Team: English\n"
-"Language: en_AU\n"
+"Report-Msgid-Bugs-To: https://github.com/newfold-labs/wp-module-facebook/issues\n"
+"POT-Creation-Date: 2025-02-13T09:55:55+00:00\n"
+"PO-Revision-Date: 2025-05-07 12:48+0100\n"
+"Last-Translator: Carlos Rodriguez <carlos.rodriguez@newfold.com>\n"
+"Language-Team: Spanish <es@tp.org.es>\n"
+"Language: es_MX\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,12 +21,12 @@ msgstr "Facebook"
 
 #: includes/RestApi/FacebookController.php:115
 msgid "Details not found."
-msgstr "Details not found."
+msgstr "Detalles no encontrados."
 
 #: build/index.js:1
 msgid "Connected"
-msgstr "Connected"
+msgstr "Conectado"
 
 #: build/index.js:1
 msgid "Connect Facebook"
-msgstr "Connect Facebook"
+msgstr "Conectar con Facebook"
