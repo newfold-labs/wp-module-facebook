@@ -16,7 +16,7 @@ Run the `Newfold Prepare Release` github action to automatically bump the versio
 
 ### Manual Release 
 
-1. Update the version number in the folling files:
+1. Update the version number in the following files:
 - package.json
 - bootstrap.php
 
