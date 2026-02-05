@@ -39,7 +39,7 @@
     "semver": "^7.7.3"
   },
   "devDependencies": {
-    "@wordpress/env": "^10.38.0",
+    "@wordpress/env": "^10.39.0",
     "@wordpress/scripts": "^31.3.0"
   }
 }
