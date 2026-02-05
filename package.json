@@ -40,6 +40,6 @@
   },
   "devDependencies": {
     "@wordpress/env": "^10.38.0",
-    "@wordpress/scripts": "^31.3.0"
+    "@wordpress/scripts": "^31.4.0"
   }
 }
