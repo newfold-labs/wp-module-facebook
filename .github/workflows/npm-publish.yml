@@ -26,6 +26,7 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Trusted publishing (OIDC): remove token from .npmrc so npm uses OIDC
       - name: Configure npm for OIDC publish
         run: npm config delete //registry.npmjs.org/:_authToken || true
 
