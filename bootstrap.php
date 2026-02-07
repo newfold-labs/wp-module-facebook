@@ -29,7 +29,7 @@ if ( function_exists( 'add_action' ) ) {
 							define( 'MONTH_IN_SECONDS', '60 * 60 * 24 * 30' );
 						}
 						if ( ! defined( 'NFD_FACEBOOK_VERSION' ) ) {
-							define( 'NFD_FACEBOOK_VERSION', '1.3.2' );
+							define( 'NFD_FACEBOOK_VERSION', '1.3.3' );
 						}
 						if ( ! defined( 'NFD_FACEBOOK_DIR' ) ) {
 							define( 'NFD_FACEBOOK_DIR', __DIR__ );

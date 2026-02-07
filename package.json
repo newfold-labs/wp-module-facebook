@@ -1,6 +1,6 @@
 {
   "name": "@newfold/wp-module-facebook",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "publishConfig": {
     "access": "public"
   },
