@@ -39,7 +39,7 @@
     "classnames": "^2.3.1",
     "react": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "semver": "^7.7.4"
+    "semver": "^7.8.0"
   },
   "devDependencies": {
     "@wordpress/env": "^11.5.0",
