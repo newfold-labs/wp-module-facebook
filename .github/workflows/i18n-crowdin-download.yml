@@ -14,9 +14,9 @@ permissions: {}
 
 jobs:
   call-crowdin-workflow:
-    uses: newfold-labs/workflows/.github/workflows/i18n-crowdin-download.yml@main
     permissions:
       contents: read # Required so the reusable Crowdin download job can run actions/checkout against this private repository; Crowdin PR creation uses secrets.NEWFOLD_ACCESS_TOKEN inside the reusable workflow.
+    uses: newfold-labs/workflows/.github/workflows/i18n-crowdin-download.yml@main
     timeout-minutes: 30
     with:
       base_branch: ${{ inputs.base_branch }}
