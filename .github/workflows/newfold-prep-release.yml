@@ -25,6 +25,7 @@ jobs:
     permissions:
       contents: write      # Required for the reusable workflow to push the release branch to this module repository.
       pull-requests: write # Required for the reusable workflow to open the draft release pull request with `gh pr create`.
+    timeout-minutes: 35
     with:
       module-repo: ${{ github.repository }}
       module-branch: 'main'

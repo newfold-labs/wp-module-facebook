@@ -23,6 +23,7 @@ jobs:
     permissions:
       contents: write      # Required because the reusable workflow pushes the auto-translate branch to this repository.
       pull-requests: write # Required because the reusable workflow uses `gh pr` to list, update, and create pull requests.
+    timeout-minutes: 120
     with:
       text_domain: 'wp-module-facebook'
     secrets:
