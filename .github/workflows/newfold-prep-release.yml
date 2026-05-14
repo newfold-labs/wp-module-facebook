@@ -21,10 +21,10 @@ jobs:
   # This job runs the newfold module-prep-release workflow for this module.
   prep-release:
     name: Prepare Release
-    permissions:
-      contents: write
-      pull-requests: write
     uses: newfold-labs/workflows/.github/workflows/reusable-module-prep-release.yml@main
+    permissions:
+      contents: write      # Required for the reusable workflow to push the release branch to this module repository.
+      pull-requests: write # Required for the reusable workflow to open the draft release pull request with `gh pr create`.
     with:
       module-repo: ${{ github.repository }}
       module-branch: 'main'
