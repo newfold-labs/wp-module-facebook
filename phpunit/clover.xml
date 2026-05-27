@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779470108">
-  <project timestamp="1779470108">
+<coverage generated="1779920229">
+  <project timestamp="1779920229">
     <file name="/home/runner/work/wp-module-facebook/wp-module-facebook/bootstrap.php">
       <line num="14" type="stmt" count="0"/>
       <line num="15" type="stmt" count="0"/>
