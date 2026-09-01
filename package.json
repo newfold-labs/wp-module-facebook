@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@wordpress/env": "^11.13.0",
-    "@wordpress/scripts": "^34.1.0"
+    "@wordpress/scripts": "^34.2.0"
   },
   "overrides": {
     "react-dom": "^18.3.1",
